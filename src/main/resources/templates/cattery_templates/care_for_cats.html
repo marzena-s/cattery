@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 col-sm-11 col-xs-11 mb-2 ml-5 p-4 text-left">
+    <h1 class="text-uppercase text-secondary">Z ŻYCIA HODOWCY...</h1>
+</div>
+<form class="bg-white p-1 ml-5 border-top col-md-11 col-sm-11 col-xs-11  text-justify" style="text-indent: 8%;">
+    <a>Po paru latach codziennego obcowania z maincoonami mogę potwierdzić, że mają naprawdę "psi charater", wszędzie
+        chodzą za swoim opiekunem, są bardzo ciekawe świata a przede wszystkim bardzo inteligentne. Na przykładzie
+        własnych kotków mogę powiedzieć, że przy niewielkim wysiłku można nauczyć je wielu różnych sztuczek jak np.
+        aportowanie, gaszenie czy zapalanie światła nie mówiąc o samodzielnym otwieraniu sobie przez kotki drzwi. Są
+        bardzo łase na pieszczoty i uwielbiają wspólne zabawy.<br>
+    </a>
+    <br>
+    <div class="form-row">
+        <div class="col-md-2"></div>
+        <video class="col-md-8" height="400" controls>
+            <source src="/img/cattery/cattery_video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <br>
+    <a>
+        By kotki były szczęśliwe poświęcam im bardzo dużo czasu a socjalizację zaczynam już od pierwszych tygodni po
+        narodzeniu. To dlatego klienci tak bardzo sobie chwalą kotki z mojej hodowli, za to, że są
+        tak pięknie zsocjalizowane, nauczone korzystać z kuwet i przede wszystkim, że są zdrowe!
+        A propo zdrowia nigdy nie oszczędzałam i nie będę oszczędzać na jedzeniu dla kotów. Moje kociaki są karmione
+        świeżym, lekko przemrożonym mięsem wołowym lub z kurczaka, stosuję też oczywiście suchą karmę, ale sprawdzonych
+        na rynku, renomowanych firm. Od czasu do czasu dostają podroby (serca lub wątróbki), czasami świeże jajko,
+        dlatego mają tak piękną sierść i zdrowy wygląd. Kotki spodziewające się potomstwa mają zapewnione dodatkowo
+        specjalne suplementy, odżywki oraz wysokobiałkowe produkty dedykowane kotkom w ciąży. Z rozmów z weterynarzami
+        i z własnych doświadczeń wiem, że tylko zdrowe odżywianie (podobnie jak u ludzi) zapewni kotkom długie i zdrowe
+        życie, a warto wiedzieć, że dobrze odżywiany i zaopiekowany Maine Coon może żyć do 12 a nawet 18 lat. Znajomi
+        już teraz sobie ze mnie żartują, że moje kotki jedzą lepiej niż reszta domowników.
+    </a><br>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_colorful_1.jpg" alt="cattery.colorful" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_blue_1.jpg" alt="cattery.blue" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+    </div>
+
+    <a><br>
+        Wiem, że warto zadbać o koty
+        gdyż nie ma bardziej oddanych i wiernych przyjaciół, którzy lubią sobie porozmawiać za swoim opiekunem...Tak !
+        te koty naprawdę potrafią rozmawiać i odpowiadać swoim opiekunom na zadawane pytania, oczywiście robią to w
+        swoim, kocim języku a gama dzwięków wydawanych przez Maine Coony jest naprawdę bardzo szeroka, nie przypomina to
+        typowego miałczenia a raczej ptasi świergot, którego natężenie zależy od nastroju czy danej sytuacji. Czasami
+        naprawdę mam wrażenie, że koty doskonale nas rozumieją a już na pewno wyczuwają nasze nastroje. Wiele razy
+        zdarzało się, że w momentach przygnębienia moje ulubione kotki przychodziły, kładły mi głowę na kolanach,
+        patrzyły w oczy i w swoim języku mówiły "nie martw się, jutro będzie lepiej...". Dlatego wszystkie są
+        traktowane jak członkowie rodziny, dlatego tak bardzo zależy mi aby były szczęśliwe i na tym
+        aby trafiały do prawdziwych miłośników kotów, którzy będą potrafili o nie zadbać.
+        <br>
+    </a>
+</form>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+</body>
+</html>

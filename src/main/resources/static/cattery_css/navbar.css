@@ -1,0 +1,36 @@
+ .navbar-nav > .active > a {
+                color: red;
+            }
+
+@media (max-width: 1195px) {
+.navbar {
+    background-color: rgba(240,240,240,1.0) !important ;
+    }
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    background-color: rgba(240,240,240,0.5);
+    width: 100%;
+    z-index: 99999999;
+}
+
+.nav-item {
+    font-size: 100%;
+    padding-left:3px;
+    padding-right:3px;
+}
+
+.icon {
+    color: #3b5998;
+    font-size: 120%;
+}
+
+.icon:hover {
+    color: #92a6d3;
+}
+
+.scrolled {
+    background-color: rgba(240,240,240,1.0) !important ;
+}

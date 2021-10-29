@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v11.0"
+            nonce="RJNf5nPr"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+    <script th:src="@{/js/cattery_js/contact_form.js}"></script>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 mb-2 ml-5 p-3 text-left">
+    <h1 class="text-uppercase text-secondary">MASZ PYTANIA? NAPISZ DO NAS!</h1>
+</div>
+<div class="form-row col-xs-10">
+    <form class="bg-white p-1 ml-5 border col-md-8">
+        <div class="form-row  justify-content-center">
+            <div class="form-group col-md-10 text-left">
+                <label class="required" for="name">Imię lub nick</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-md-5 text-left">
+                <label class="required" for="e_mail">E-mail</label>
+                <input type="text" class="form-control" id="e_mail">
+                <span id="e_mail_error"></span>
+
+            </div>
+            <div class="form-group col-md-5 text-left">
+                <label for="phone_number">Numer telefonu</label>
+                <input type="text" class="form-control" id="phone_number">
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-md-10 text-left">
+                <label class="required" for="message_topic">Temat wiadomości</label>
+                <input type="text" class="form-control" id="message_topic" required>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-md-10 text-left ">
+                <label class="required" for="content">Treść wiadomości</label>
+                <textarea id="content" class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="form-check ml-5 p-1">
+            <input type="checkbox" class="form-check-input" id="regulation">
+            <label class="form-check-label" for="regulation">
+                <span>Wyrażam zgodę na przetwarzanie danych podanych w formularzu w celu uzyskania odpowiedzi na wysłane zapytanie.
+                </span>
+                <a href="/rodo" target="_blank">(więcej)</a>
+            </label>
+        </div>
+        <div class="btn-group-toggle ml-5 p-1" data-toggle="buttons">
+            <button type="button" class="btn btn-outline-dark" onclick="sendCreateRequest()">WYŚLIJ</button>
+        </div>
+    </form>
+    <form class=" ml-3 col-md-3 col-sm-10 col-xs-10 ">
+        <div class="fb-page justify-content-center ml-5"
+             data-href="https://www.facebook.com/Hodowla-Kot&#xf3;w-Maine-Coon-Kocie&#x142;apkiPL-111891824050249/"
+             data-tabs="timeline" data-width="500" data-height="550" data-small-header="false"
+             data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+            <blockquote
+                    cite="https://www.facebook.com/Hodowla-Kot&#xf3;w-Maine-Coon-Kocie&#x142;apkiPL-111891824050249/"
+                    class="fb-xfbml-parse-ignore"><a
+                    href="https://www.facebook.com/Hodowla-Kot&#xf3;w-Maine-Coon-Kocie&#x142;apkiPL-111891824050249/">Hodowla
+                Kotów Maine Coon Kociełapki.PL</a></blockquote>
+        </div>
+    </form>
+</div>
+
+<div class="form-row">
+    <iframe class=" col-md-8 col-xs-12 col-sm-12 ml-5 mr-5 px-5 py-5 container-fluid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.661629005574!2d18.932883115683257!3d50.05516967942281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716b7c5ae66bd19%3A0x1b365f3858a97be7!2sHodowla%20kot%C3%B3w%20rasy%20Maine%20Coon%20Kocie%C5%82apki*2APL!5e0!3m2!1spl!2spl!4v1627856300246!5m2!1spl!2spl"
+            width="" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+    <form class="col-md-2 col-sm-10 col-xs-12 px-5 py-5 m-5 text-center text-secondary border justify-content-center">
+        <div class="justify-content-center">
+            <span><i class="fas fa-cat"></i> HODOWLA KOTÓW RASY MAINE COON KOCIEŁAPKI*PL</span><br>
+            <br>
+            <span> <i class="fas fa-map-marker-alt"></i> Łukowa 85, 43-210 Kobiór</span><br>
+            <br>
+            <span><i class="fas fa-mobile-alt"></i> 695 086 320</span><br>
+        </div>
+    </form>
+</div>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+
+<div th:replace="fragments/cattery_send-successful-modal :: modal"></div>
+<div th:replace="fragments/operation-successful-modal :: modal"></div>
+<div th:replace="fragments/cattery_invalid_data_modal :: modal"></div>
+
+
+</body>
+
+</html>

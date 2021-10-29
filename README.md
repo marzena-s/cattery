@@ -1,2 +1,1 @@
 # cattery
-Cattery Management System

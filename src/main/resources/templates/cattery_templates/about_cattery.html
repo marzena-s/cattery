@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 col-sm-11 col-xs-11 mb-2 ml-5 p-4 text-left">
+    <h1 class="text-uppercase text-secondary">JAK TO SIĘ ZACZĘŁO...</h1>
+</div>
+<form class="bg-white p-1 ml-5 border-top col-md-11 col-sm-11 col-xs-11  text-justify" style="text-indent: 8%;">
+    <a>Zwierzęta towarzyszyły mi już od najmłodszych lat. Odkąd pamiętam w domu zawsze był pies lub kot, ale moja
+        przygoda z kotami rasowymi zaczęła się od zupełnego przypadku. W trakcie mojego pobytu w Niemczech,
+        któregoś dnia zobaczyłam na spacerze małego lwa (tak mi się to wtedy wydawało), okazało się, że to był
+        właśnie Maine Coon z piękną jak u lwa grzywą. Byłam zachwycona jego majestatem i oryginalnym wyglądem. Po
+        prostu był wyjątkowy i chyba od tego momentu zaczęła się moja fascynacja tą rasą kotów. Decyzja o założeniu
+        własnej hodowli dojrzewała u mnie bardzo powoli, wcześniej bardzo dużo przeczytałam fachowych książek
+        dotyczącej maine coonów. Ostateczną decyzję podjęłam po rozmowie z moją przyjaciółką, prowadzącą
+        przychodnię dla zwierząt, która obiecała mi wszelką pomoc i opiekę weterynaryjną...
+        <br>
+        Pierwszym krokiem było wstąpienie do renomowanego związku fenologicznego, w moim przypadku jest to Felis
+        Polonia (FPL), gwarantująca rodowody na sprzedawane kotki, honorowane zarówno w kraju jak i na całym
+        świecie. Tym samym klient ma gwarancję, że nabył prawdziwego Maine Coona a nie "mieszańca" niewiadomego
+        pochodzenia. Do mojej hodowli zakupiłam wyjątkowe, rodowodowe kotki po utytułowanych rodzicach, jednak
+        wiadomo, że najważniejszą rolę odgrywa reproduktor. W tej roli świetnie sprawdza się ozdoba stada -rudy
+        kocur Robin oraz srebrzystogrzywy Ares.
+    </a>
+    <br>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_robin_1.jpg" alt="cattery.robin" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_ares_1.jpg" alt="cattery.ares" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+    </div>
+    <br>
+    <a>
+        Mimo groźnego wyglądu i dużych rozmiarów są to przekochane, łagodne
+        i bardzo przyjacielskie koty. To właśnie jest charakterystyczne dla tej rasy, że koty są bardzo przyjazne i
+        towarzyskie. Bardzo łatwo nawiązują kontakty z ludźmi, których traktują jak najlepszych przyjaciół. Mimo, że
+        mogą osiągać spore rozmiary i wagę (samce od 5 do 11 kg a kotki od 5 do 8 kg), cechują się łagodnością i
+        delikatnością. Dlatego idealnie sprawdzają się w roli przyjaciela dla dzieci czy osób starszych. Z własnego
+        doświadczenia mogę powiedzieć, że koty tej rasy świetnie aklimatyzują się w nowych warunkach, świetnie czują
+        się w towarzystwie innych kotów, a nawet psów, które z czasem potrafią sobie nawet podporządkować. Jeżeli
+        będą Państwo zainteresowani zakupem kotków z mojej hodowli zapraszam do kontaktu.
+        <br>
+        Pozdrawiam serdecznie Joanna Kacprzycka.
+        <br><br>
+    </a>
+</form>
+<div class="form-row text-center">
+    <div class="col-md-1"></div>
+    <div class="col-sm-10 col-md-10 col-xs-10">
+        <figure>
+            <img src="/img/cattery/cattery_group_1.jpg" alt="cattery.group" style="width: 60%; height: auto;"></a>
+        </figure>
+    </div>
+</div>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+</body>
+</html>

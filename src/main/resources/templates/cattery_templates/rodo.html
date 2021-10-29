@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+</head>
+
+<body>
+<nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+
+<div class="container my-5 mt-5 pt-2">
+
+    <div class="text-center mt-5 pt-5">
+        <h3>Obowiązek informacyjny wg RODO</h3>
+        <h6>Poniżej znajdziesz wszelkie niezbędne informacje dotyczące przetwarzania Twoich danych osobowych na potrzeby serwisu</h6>
+    </div>
+
+    <table class="table table-bordered my-5">
+        <tbody>
+
+        <tr>
+            <td class="text-center align-middle">Jaki jest zakres przetwarzania moich danych osobowych?</td>
+            <td class="text-center align-middle">
+                Dane wpisane w formularzu kontaktowym będą przetwarzane w celu udzielenia odpowiedzi na przesłane zapytanie zgodnie z regulaminem.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">Jaki jest cel przetwarzania moich danych osobowych?</td>
+            <td class="text-center align-middle">
+                Dane wpisane w formularzu kontaktowym będą przetwarzane w celu udzielenia odpowiedzi na przesłane zapytanie zgodnie z regulaminem. Podanie przez Państwa danych osobowych jest dobrowolne, a konsekwencją niepodania danych
+                osobowych może skutkować brakiem możliwości wysłania zapytania za pośrednictwem formularza kontaktowego.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">Jaka jest podstawa prawna przetwarzania moich danych osobowych?</td>
+            <td class="text-center align-middle">
+                Twoja zgoda na przetwarzanie danych osobowych. Niewyrażenie przez Ciebie zgody
+                uniemożliwi kontakt zwrotny.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">Komu przekazywane są moje dane?</td>
+            <td class="text-center align-middle">
+                Państwa dane osobowe nie będą przekazywane do państw trzecich i organizacji
+                międzynarodowych.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">Jak długo przetwarzane będą moje dane?</td>
+            <td class="text-center align-middle">
+                Państwa dane osobowe będą przechowywane przez okres niezbędny do wyjaśnienia sprawy w
+                związku otrzymaniem zapytania przez formularz kontaktowy dostępny w ramach portalu internetowego lub do momentu wycofania zgody.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">Jakie przysługują mi prawa?</td>
+            <td class="text-center align-middle">
+                Prawo do cofnięcia zgody w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania, którego
+                dokonano na podstawie zgody przed jej cofnięciem. Dostępu do swoich danych osobowych, kopii
+                przetwarzanych danych, sprostowania, usunięcia lub ograniczenia przetwarzania. Przysługuje prawo
+                do wniesienia sprzeciwu wobec przetwarzania danych osobowych w celach marketingowych, a także prawo
+                do wniesienia skargi do Prezesa Urzędu Ochrony Danych. Dane nie będą wykorzystywane do
+                zautomatyzowanego podejmowania decyzji lub profilowania.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</body>
+
+</html>

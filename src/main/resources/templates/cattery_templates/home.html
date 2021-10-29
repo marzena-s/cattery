@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@300&display=swap" rel="stylesheet">
+
+    <div th:replace="fragments/cattery_front_head"></div>
+
+</head>
+
+<body>
+
+    <div class="bg-image" style="background-image: url('img/cattery/main-photo-cut.jpg'); background-size: cover; background-position: relative; height: 100vh;">
+    </div>
+
+<nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</body>
+
+</html>

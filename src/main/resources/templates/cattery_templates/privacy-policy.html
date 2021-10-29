@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+</head>
+
+<body>
+<nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+
+<div class="container my-5 mt-5 pt-2">
+
+    <div>
+        <h3 class="text-center">POLITYKA PRYWATNOŚCI I POLITYKA COOKIES</h3>
+
+        <div class="my-3">
+            Polityka prywatności portalu skierowana jest do osób z niego korzystających, zwanych dalej Użytkownikami.
+            Prezentuje zakres danych dotyczących osobistej identyfikacji Użytkownika, które gromadzi właściciel serwisu
+            oraz mechanizmy zapewniające jego prywatność.
+        </div>
+        <div class="my-3">
+            <span class="font-weight-bold">1. Dane gromadzone przez właściciela serwisu:</span><br>
+            a) w przypadku zgłoszenia przez formularz<br>
+            - Imię i nazwisko<br>
+            - E-mail<br>
+            - Telefon komórkowy<br>
+        </div>
+        <div class="my-3">
+            <span class="font-weight-bold">2. Sposób zbierania danych</span><br>
+            Dane Użytkowników mogą być zbierane automatycznie przez serwer lub podawane przez Użytkownika podczas wysyłania przez Użytkownika zapytania do właściciela serwisu.
+        </div>
+        <div class="my-3">
+            <span class="font-weight-bold">3. Sposób wykorzystania danych</span><br>
+            Dane Użytkowników wykorzystywane są do celów generowania statystyk odwiedzin serwisu oraz utrzymania kontaktu z
+            Użytkownikami. Dane Użytkowników nie są udostępniane innym podmiotom, z wyłączeniem
+            podmiotów upoważnionych na podstawie przepisów prawa.
+        </div>
+
+        <div class="my-3">
+            <span class="font-weight-bold">6. Polityka korzystania przez serwis z plików cookies (tzw. ciasteczek)</span><br>
+            a) Pliki cookies (tzw. „ciasteczka”) stanowią dane informatyczne, w szczególności pliki tekstowe, które
+            przechowywane są w urządzeniu końcowym Użytkownika serwisu i przeznaczone są do korzystania ze stron
+            internetowych serwisu. Cookies zazwyczaj zawierają nazwę strony internetowej, z której pochodzą, czas
+            przechowywania ich na urządzeniu końcowym oraz unikalny numer.<br>
+            b) Podmiotem zamieszczającym na urządzeniu końcowym Użytkownika serwisu pliki cookies oraz uzyskującym do
+            nich dostęp jest właściciel serwisu oraz podmioty wyznaczone przez właściciela serwisu.<br>
+            c) Mechanizm cookies nie jest wykorzystywany do pozyskiwania jakichkolwiek informacji o użytkownikach serwisu
+            ani śledzenia ich nawigacji. Pliki cookies stosowane w serwisie nie przechowują żadnych danych osobowych ani
+            innych informacji zebranych od użytkowników.<br>
+            d) Domyślnie oprogramowanie służące do przeglądania stron internetowych (przeglądarka) zezwala na obsługę
+            plików cookies na urządzeniu Użytkownika, na którym jest uruchomiona. W większości przypadków oprogramowanie
+            w tym zakresie można skonfigurować samodzielnie, w tym między innymi wymusić automatyczne blokownie plików
+            cookies. Kwestie związane z konfiguracją sposobu obsługi plików cookies znajdują się w ustawieniach
+            oprogramowania (przeglądarki internetowe). Należy mieć na uwadze, że ustawienia ograniczeń w stosunku do
+            obsługi plików cookies mogą mieć wpływ na działanie niektórych funkcjonalności serwisu.<br>
+            e) Pliki cookies wykorzystywane są w celu optymalizacji korzystania ze stron internetowych; w szczególności
+            pliki te pozwalają rozpoznać urządzenie Użytkownika serwisu i odpowiednio wyświetlić stronę internetową,
+            dostosowaną do jego indywidualnych potrzeb oraz w celu tworzenia statystyk, które pomagają określić liczbę
+            Użytkowników odwiedzających serwis.
+        </div>
+        <div class="my-3">
+            <span class="font-weight-bold">7. Zabezpieczenie danych  użytkowników w serwisie</span><br>
+            a) Komunikacja między Użytkownikiem a serwerem jest szyfrowana oraz jest zabezpieczona poprzez mechanizm
+            uwierzytelniania dostępu do serwisu;<br>
+            b) Dostęp do administrowania serwisem odbywa się z zastosowaniem mechanizmu uwierzytelniania.
+        </div>
+    </div>
+
+</div>
+
+
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</body>
+
+</html>

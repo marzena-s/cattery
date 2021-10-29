@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/cattery_css/admin.css}"/>
+    <div th:replace="fragments/cattery_head"></div>
+    <script th:src="@{/js/cattery_js/contact_form_admin.js}"></script>
+    <script th:src="@{/libs/sha.js}"></script>
+    <script th:inline="javascript">
+        var yesNoDict = [[${yesNoDict}]];
+    </script>
+</head>
+
+<body>
+<nav th:replace="fragments/menu :: menu"></nav>
+<div>
+    <h5 class="text-light text-uppercase text-center">Zgłoszenia - formularz kontaktowy</h5>
+</div>
+
+
+<form id="filter" class="table-filter text-light border m-0 p-0 my-3">
+    <div class="form-row m-0 p-0">
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{contact.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="name" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <div class="form-row m-0 p-3">
+                <input type="checkbox" id="served"/>
+                <label class="px-2 my-auto form-check-label" th:text="#{contact.show.unserved}"></label>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="result-container" class="my-4">
+    <div class="table-responsive mb-0 pb-0">
+        <table class="table text-light table-bordered table-hover table-sm mb-0 pb-0">
+            <thead class="text-white">
+            <tr  class="text-light table-header">
+                <th class="align-middle">Nazwa</th>
+                <th class="align-middle">Email</th>
+                <th class="align-middle">Numer telefonu</th>
+                <th class="align-middle">Temat</th>
+                <th class="align-middle">Data</th>
+                <th class="align-middle">Obsłużony</th>
+                <th class="align-middle" th:text="#{customers.user.details}"></th>
+                <th class="align-middle" th:text="#{Delete}"></th>
+            </tr>
+            </thead>
+            <tbody id="records">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content bg-grey text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                    <div class="form-group form-row">
+                        <label for="id" style="id-modal" hidden>Id: </label>
+                        <input id="id" type="text"  style="border: none; font-size: 14px; float: left;" value="" hidden>
+                    </div>
+                    <form class="text-center">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="date" th:text="#{contact.form.date}"></label>
+                            <input id="date" type="text" class="form-control" value="" readonly>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="name-details" th:text="#{contact.name}"></label>
+                            <input id="name-details" type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6 text-center">
+                            <label for="email-details">E-mail</label>
+                            <input id="email-details" type="text" class="form-control" value="" readonly>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="phone-number" th:text="#{contact.form.phone}"></label>
+                            <input id="phone-number" type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="topic" th:text="#{contact.form.topic}"></label>
+                        <!--                    <input id="topic" type="text" class="form-control" value="" readonly>-->
+                        <div class="align-middle"><textarea id="topic" type="text" class="form-control" rows="3"
+                                                            value=""
+                                                            readonly></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content" th:text="#{contact.form.content}"></label>
+                        <div class="align-middle"><textarea id="content" type="text" class="form-control" rows="3"
+                                                            value=""
+                                                            readonly></textarea></div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6 text-center">
+                            <label for="regulationAccepted" th:text="#{contact.form.regulation}"></label>
+                            <input id="regulationAccepted" type="text" class="form-control" value="" readonly>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="served-details" th:text="#{contact.form.served}"></label>
+                            <input id="served-details" type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="modal-footer">
+
+                            <button type="button" id="update-button" class="btn btn-success" onclick="updateContact()"
+                                    th:text="#{contact.form.check.served.button}"></button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    th:text="#{Cancel}"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<div th:replace="fragments/pagination :: pagination"></div>
+<div th:replace="fragments/operation-successful-modal :: modal"></div>
+<div th:replace="fragments/delete-object-modal :: modal"></div>
+</body>
+
+</html>

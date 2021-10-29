@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="modal" class="modal" id="invalid-data-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-red p-2">
+            <div class="modal-body w-100" data-dismiss="modal">
+                <button type="button" class="close">&times;</button>
+                <span id="error-text"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

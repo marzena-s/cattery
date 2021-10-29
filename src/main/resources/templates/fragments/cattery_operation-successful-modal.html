@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <div th:fragment="modal" class="modal" id="operation-successful-modal" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-green p-2">
+                <div class="modal-body w-100" data-dismiss="modal">
+                    <button type="button" class="close">&times;</button>
+                    <p> </p>
+                    <p class="font-weight-bold text-center" th:text="#{operation.successful.modal.body}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

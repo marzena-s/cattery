@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <!--    <title th:text="#{rodo.tab.title} + ' · ' + ${@applicationConfig.getAppNameFront()}"></title>-->
+</head>
+
+<body>
+
+<nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+
+<div class="container my-5 mt-5 pt-2">
+
+    <h3 class="text-center">REGULAMIN</h3>
+    <h6 class="text-center">korzystania Użytkowników z Formularza kontaktowego</h6>
+
+    <div class="my-3">
+        Niniejszy „Regulamin korzystania przez Użytkowników z Formularza kontaktowego” określa zasady nieodpłatnego korzystania przez
+        Użytkowników z Formularza kontaktowego dostępnego
+        na stronie internetowej kocielapki.pl/kontakt, w celu uzyskania odpowiedzi na pytanie/a w zakresie tematycznym nim objętym.
+    </div>
+
+    <div class="font-weight-bold my-3">§1 Definicje</div>
+
+    <ol>
+        <li class="my-1">
+            <strong>Formularz kontaktowy</strong>
+            - formularz, w którym Użytkownicy strony internetowej
+            kocielapki.pl/kontakt zamieszczają niezbędne informacje i dane w celu wykonania usługi/realizacji przesłanego zgłoszenia.
+        </li>
+        <li class="my-1">
+            <strong>Użytkownik</strong>
+            - osoba korzystająca z Formularza kontaktowego w zakresie przewidzianym niniejszym Regulaminem.
+        </li>
+        <li class="my-1">
+            <strong>Kocielapki*PL/hodowla</strong>
+            -  osoba fizyczna, osoba prawna albo jednostka organizacyjna nieposiadająca osobowości prawnej, której prawo
+            przyznaje zdolność prawną zawierająca umowę z Usługodawcą.
+        </li>
+    </ol>
+
+    <div class="font-weight-bold my-3">§2 Określenie zasad dostępu Użytkowników do Formularza kontaktowego</div>
+
+    <ol>
+        <li class="my-1">
+            Dostęp do Formularza kontaktowego nie jest uzależniony od spełnienia przez Użytkownika jakichkolwiek formalności, w szczególności dostęp ten nie wymaga od Użytkownika dokonania rejestracji oraz logowania.
+        </li>
+        <li class="my-1">
+            Kociełapki*PL zapewnia Użytkownikom nieodpłatny dostęp do Formularza kontaktowego na czas nieoznaczony.        </li>
+        <li class="my-1">
+            Formularz kontaktowy służy wyłącznie do korespondencji związanej z działalnością Kociełapki*PL, w zakresie tematycznym - hodowla.
+        </li>
+    </ol>
+
+
+    <div class="font-weight-bold my-3">§3 Warunki korzystania z Formularza kontaktowego i zobowiązania Użytkownika</div>
+
+    <ol>
+        <li class="my-1">
+            Celem skorzystania z Formularza kontaktowego Użytkownik dokonuje czynności, na które składają się:
+            <ol>
+                <li>wypełnienie Formularza kontaktowego poprzez podanie następujących danych i informacji: nazwa, adres e-mail, telefon, treść wiadomości</li>
+                <li>potwierdzenie, że zapoznał się z treścią Regulaminu oraz że akceptuje jego wszystkie postanowienia</li>
+                <li>potwierdzenie, że wyraża zgodę na przetwarzanie danych osobowych w celu przygotowania i przekazania odpowiedzi na zadane pytanie/a oraz ich archiwizacji</li>
+                <li>potwierdzenie chęci kontaktu poprzez naciśnięcie na link zawarty w Formularzu kontaktowym „Prześlij”</li>
+            </ol>
+        </li>
+        <li class="my-1">
+            Użytkownik zobowiązany jest do korzystania z Formularza kontaktowego zgodnie z przepisami prawa, postanowieniami niniejszego Regulaminu oraz dobrymi obyczajami.
+        </li>
+        <li class="my-1">
+            Użytkownik zobowiązuje się do niepodawania fałszywych danych osobowych, jak również do niepodawania danych osobowych innej osoby, bez jej pozwolenia, oraz do niepodawania adresu e-mail, którego nie jest właścicielem.
+            Użytkownik ponosi wyłączną odpowiedzialność za treść podanych przez siebie danych, w tym również odpowiedzialność za ewentualne naruszenie praw osób trzecich.
+        </li>
+        <li class="my-1">
+            Użytkownik zobowiązuje się do zapoznawania się ze zmianami w niniejszym Regulaminie.
+        </li>
+    </ol>
+
+    <div class="font-weight-bold my-3">§4 Odpowiedzialność Kociełapki*PL</div>
+
+    <ol>
+        <li class="my-1">
+            Kociełapki*PL nie ponosi odpowiedzialności za decyzje Użytkownika podjęte w oparciu o informacje uzyskane w wyniku korzystania z informacji uzyskanych po wypełnieniu formularza kontaktowego.
+
+        </li>
+        <li class="my-1">
+            Hodowla oświadcza, że wszystkie informacje uzyskane przez Użytkownika za pośrednictwem Formularza kontaktowego, mają:<br>
+            walor informacyjny,<br>
+            nie mogą być podstawą jakichkolwiek roszczeń wobec hodowli.
+        </li>
+        <li class="my-1">
+            Kociełapki*PL nie ponosi odpowiedzialności za brak dostępności do formularza kontaktowego wynikający z przyczyn niezależnych od Kociełapki*PL lub innych przyczyn technicznych
+            związanych z funkcjonowaniem systemu teleinformatycznego i strony internetowej.
+        </li>
+        <li class="my-1">
+            Kociełapki*PL zastrzega sobie prawo do zmiany postanowień niniejszego Regulaminu w każdym czasie. Zmiany wchodzą w życie z chwilą umieszczenia treści
+            zmienionego Regulaminu na stronie internetowej.
+        </li>
+        <li class="my-1">
+            Hodowla zastrzega sobie prawo do całkowitego zaprzestania oferowania niniejszej usługi w każdym czasie, bez podania przyczyn.
+        </li>
+    </ol>
+
+
+    <div class="font-weight-bold my-3">§5 Przetwarzanie danych osobowych przez Kociełapki*PL</div>
+
+    <ol>
+        <li class="my-1">
+            Administratorem danych osobowych Użytkowników strony internetowej kocielapki.pl jest hodowla Kociełapki*PL z siedzibą w Łukowa 85, 43-210 Kobiór.
+        </li>
+        <li class="my-1">
+            Hodowla przetwarza dane osobowe wyłącznie w celu udzielenia informacji o które prosi Użytkownik.
+        </li>
+        <li class="my-1">
+            Podanie danych osobowych jest dobrowolne, lecz niezbędne w celu udzielenia odpowiedzi na zapytanie.
+        </li>
+        <li class="my-1">
+            Dane osobowe przetwarzane będą przez okres niezbędny dla udzielenia odpowiedzi, a po tym okresie dla celów i przez czas archiwizacji oraz w zakresie wymaganym przez przepisy prawa.
+        </li>
+        <li class="my-1">
+            Każdej osobie, w zakresie wynikającym z przepisów prawa, przysługuje prawo do dostępu do swoich danych oraz
+            ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo wniesienia sprzeciwu wobec przetwarzania, prawo do przenoszenia danych, a także prawo cofnięcia udzielonej zgody w dowolnym momencie. Cofnięcie zgody nie ma wpływu na zgodność z
+            prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.
+        </li>
+        <li class="my-1">
+            W przypadku wątpliwości związanych z przetwarzaniem danych osobowych każda
+            osoba może zwrócić się do Hodowli z prośbą o udzielenie informacji.
+            Niezależnie od powyższego każdemu przysługuje prawo wniesienia skargi do organu nadzorczego – Prezesa Urzędu Ochrony Danych Osobowych.
+        </li>
+    </ol>
+</div>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</body>
+
+</html>

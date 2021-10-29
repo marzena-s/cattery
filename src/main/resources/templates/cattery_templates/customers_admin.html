@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/cattery_css/admin.css}"/>
+    <div th:replace="fragments/cattery_head"></div>
+    <script th:src="@{/libs/sha.js}"></script>
+    <script th:src="@{/js/cattery_js/customers_admin.js}"></script>
+
+</head>
+
+<body>
+<nav th:replace="fragments/menu :: menu"></nav>
+<div>
+    <h5 class="text-light text-uppercase text-center" th:text="#{customers}"></h5>
+</div>
+<div class="text-center">
+    <button type="button" class="btn btn-success btn-xl" data-toggle="modal" data-target="#create-modal"
+            th:text="#{Create}"></button>
+</div>
+
+
+<form id="filter" class="table-filter text-light border m-0 p-0 my-3">
+    <div class="form-row m-0 p-0">
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center"
+                   th:text="#{customer.first.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="first-name-filter" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center"
+                   th:text="#{customer.last.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="last-name-filter" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{customer.city}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="city-filter" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="result-container" class="my-4">
+    <div class="table-responsive mb-0 pb-0">
+        <table class="table text-light table-bordered table-hover table-sm mb-0 pb-0">
+            <thead class="text-light">
+            <tr class="text-light table-header">
+                <th class="align-middle" th:text="#{customer.first.name}"></th>
+                <th class="align-middle" th:text="#{customer.last.name}"></th>
+                <th class="align-middle" th:text="#{customer.city}"></th>
+                <th class="align-middle" th:text="#{customer.phone.number}"></th>
+                <th class="align-middle" th:text="#{customer.email}"></th>
+                <th class="align-middle" th:text="#{details}"></th>
+                <th class="align-middle" th:text="#{Delete}"></th>
+            </tr>
+            </thead>
+            <tbody id="records">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-right text-white" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <div class="form-group form-row">
+                    <input id="id" type="text" hidden>
+                </div>
+                <form class="text-center">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="first-name-details" class="required" th:text="#{customer.first.name}"></label>
+                            <input id="first-name-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="last-name-details" class="required" th:text="#{customer.last.name}"></label>
+                            <input id="last-name-details" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="country-details" th:text="#{customer.country}"></label>
+                            <select id="country-details" class="form-control">
+                                <option th:each="country : ${countriesDict}"
+                                        th:value="${country.code}"
+                                        th:text="${country.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="city-details" th:text="#{customer.city}"></label>
+                            <input id="city-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="postal-code-details" th:text="#{customer.postal.code}"></label>
+                            <input id="postal-code-details" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="street-details" th:text="#{customer.street}"></label>
+                            <input id="street-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="building-no-details" th:text="#{customer.building.no}"></label>
+                            <input id="building-no-details" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="flat-no-details" th:text="#{customer.flat.no}"></label>
+                            <input id="flat-no-details" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="email-details" th:text="#{customer.email}"></label>
+                            <input id="email-details" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="phone-number-details" th:text="#{customer.phone.number}"></label>
+                            <input id="phone-number-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="personal-id-number-details" th:text="#{customer.personal.id.number}"></label>
+                            <input id="personal-id-number-details" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note-create" th:text="#{note}"></label>
+                        <div class="align-middle"><textarea id="note-details" type="text" class="form-control" rows="3"
+                                                            value=""></textarea></div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="update-button" class="btn btn-success"
+                                onclick="sendUpdateRequest('update')"
+                                th:text="#{Save.changes}"></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{Cancel}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-light">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="modalLabel" th:text="#{Create}"></h5>
+                <button type="button" class="close text-right text-light" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <form class="text-center">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="first-name-create" th:text="#{customer.first.name}" class="required"></label>
+                            <input id="first-name-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="last-name-create" th:text="#{customer.last.name}" class="required"></label>
+                            <input id="last-name-create" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="country-create" th:text="#{customer.country}"></label>
+                            <select id="country-create" class="form-control">
+                                <option th:each="country : ${countriesDict}"
+                                        th:value="${country.code}"
+                                        th:text="${country.value}" th:selected="(${country.code} == pl)">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="city-create" th:text="#{customer.city}"></label>
+                            <input id="city-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="postal-code-create" th:text="#{customer.postal.code}"></label>
+                            <input id="postal-code-create" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="street-create" th:text="#{customer.street}"></label>
+                            <input id="street-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="building-no-create" th:text="#{customer.building.no}"></label>
+                            <input id="building-no-create" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="flat-no-create" th:text="#{customer.flat.no}"></label>
+                            <input id="flat-no-create" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 text-center">
+                            <label for="email-create" th:text="#{customer.email}"></label>
+                            <input id="email-create" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="phone-number-create" th:text="#{customer.phone.number}"></label>
+                            <input id="phone-number-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-4 text-center">
+                            <label for="personal-id-number-create" th:text="#{customer.personal.id.number}"></label>
+                            <input id="personal-id-number-create" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note-create" th:text="#{note}"></label>
+                        <div class="align-middle"><textarea id="note-create" type="text" class="form-control" rows="3"
+                                                            value=""></textarea></div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="create-button" class="btn btn-success" onclick="sendCreateRequest()"
+                                th:text="#{Create}"></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{Cancel}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/pagination :: pagination"></div>
+<div th:replace="fragments/operation-successful-modal :: modal"></div>
+<div th:replace="fragments/delete-object-modal :: modal"></div>
+<div th:replace="fragments/cattery_invalid_data_modal :: modal"></div>
+
+</body>
+
+</html>

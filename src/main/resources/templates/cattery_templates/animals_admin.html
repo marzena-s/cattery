@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/cattery_css/admin.css}"/>
+    <div th:replace="fragments/cattery_head"></div>
+    <script th:src="@{/libs/sha.js}"></script>
+    <script th:src="@{/js/cattery_js/animals_admin.js}"></script>
+    <script th:inline="javascript">
+        var genderDict = [[${genderDict}]];
+        var catteryStatusCodeDict = [[${catteryStatusCodeDict}]];
+        var saleStatusDict = [[${saleStatusDict}]];
+        var websiteVisibilityStatusDict = [[${websiteVisibilityStatusDict}]];
+    </script>
+
+</head>
+
+<body>
+<nav th:replace="fragments/menu :: menu"></nav>
+<div>
+    <h5 class="text-light text-uppercase text-center">Zwierzęta</h5>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn btn-success btn-xl" data-toggle="modal" data-target="#create-modal"
+            id="create"
+            th:text="#{Create}"></button>
+</div>
+
+<form id="filter" class="table-filter text-light border m-0 p-0 my-3">
+    <div class="form-row m-0 p-0">
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{animal.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="name-filter" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center"
+                   th:text="#{animal.lineage.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="lineage-name-filter" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{gender}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="gender-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="gender : ${genderDict}"
+                            th:value="${gender.code}"
+                            th:text="${gender.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{cattery.status}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="cattery-status-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="status : ${catteryStatusCodeDict}"
+                            th:value="${status.code}"
+                            th:text="${status.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{sale.status}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="sale-status-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="status : ${saleStatusDict}"
+                            th:value="${status.code}"
+                            th:text="${status.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center"
+                   th:text="#{website.visibility.status}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="website-visibility-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="status : ${websiteVisibilityStatusDict}"
+                            th:value="${status.code}"
+                            th:text="${status.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="result-container" class="my-4">
+    <div class="table-responsive mb-0 pb-0">
+        <table class="table text-light table-bordered table-hover table-sm mb-0 pb-0">
+            <thead class="text-white">
+            <tr class="text-light table-header">
+                <th class="align-middle" th:text="#{animal.name}"></th>
+                <th class="align-middle" th:text="#{animal.lineage.name}"></th>
+                <th class="align-middle">Data urodzenia</th>
+                <th class="align-middle" th:text="#{cattery.status}"></th>
+                <th class="align-middle" th:text="#{sale.status}"></th>
+                <th class="align-middle" th:text="#{details}"></th>
+                <th class="align-middle" th:text="#{Delete}"></th>
+            </tr>
+            </thead>
+            <tbody id="records">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-right text-light" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <div class="form-group form-row">
+                    <input id="id" type="text" hidden>
+                </div>
+                <form class="text-center">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="breed" th:text="#{animal.breed}" class="required"></label>
+                            <select id="breed" class="form-control">
+                                <option th:each="breed : ${breedsDict}"
+                                        th:value="${breed.id}"
+                                        th:text="${breed.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="name-details" th:text="#{animal.name}" class="required"></label>
+                            <input id="name-details" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="lineage-name-details" th:text="#{animal.lineage.name}"></label>
+                            <input id="lineage-name-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="gender" th:text="#{gender}" class="required"></label>
+                            <select id="gender" class="form-control">
+                                <option th:each="gender : ${genderDict}"
+                                        th:value="${gender.code}"
+                                        th:text="${gender.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="chip-number" th:text="#{chip.number}"></label>
+                            <input id="chip-number" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="lineage-number" th:text="#{animal.lineage.number}"></label>
+                            <input id="lineage-number" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="weight" th:text="#{weight}"></label>
+                            <input id="weight" type="number" class="form-control" step="0.001" max="15">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="cattery-status" th:text="#{cattery.status}" class="required"></label>
+                            <select id="cattery-status" class="form-control">
+                                <option th:each="status : ${catteryStatusCodeDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="price" th:text="#{price}"></label>
+                            <input id="price" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="births" th:text="#{birth}" class="double-required"></label>
+                            <select id="births" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="mother" th:text="#{mother}" class="required"></label>
+                            <div class="col-md-1"></div>
+                            <input type="checkbox" id="mother-outside-details">
+                            <label class="px-2 my-auto form-check-label"
+                                   th:text="#{animal.outside.cattery}"></label>
+                            <select id="mother" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="father" th:text="#{father}" class="required"></label>
+                            <div class="col-md-1"></div>
+                            <input type="checkbox" id="father-outside-details">
+                            <label class="px-2 my-auto form-check-label"
+                                   th:text="#{animal.outside.cattery}"></label>
+                            <select id="father" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="birth-date" th:text="#{birth.date}" class="double-required"></label>
+                            <input id="birth-date" type="date" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="color" th:text="#{color}"></label>
+                            <input id="color" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="sale-status" th:text="#{sale.status}"></label>
+                            <select id="sale-status" class="form-control" disabled>
+                                <option th:each="status : ${saleStatusDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="website-visibility-status" th:text="#{website.visibility.status}"></label>
+                            <select id="website-visibility-status" class="form-control">
+                                <option th:each="status : ${websiteVisibilityStatusDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note" th:text="#{note}"></label>
+                        <div class="align-middle"><textarea id="note" type="text" class="form-control" rows="3" value="">
+                    </textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website-description" th:text="#{website.description}"></label>
+                        <div class="align-middle">
+                            <textarea id="website-description" type="text" class="form-control" rows="3" value="">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="text-justify">
+                        <a th:text="#{birth.date.comment}"></a>
+                        <br><br>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="update-button" class="btn btn-success"
+                                onclick="sendUpdateRequest('update')"
+                                th:text="#{Save.changes}"></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{Cancel}"></button>
+                    </div>
+                </form>
+                <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
+                <h5 class="text-center">Zdjęcie:</h5>
+                <div class="text-center my-3" id="image-details">
+                </div>
+
+                <form id="upload-animal-photo" class="upload">
+                    <h5 class="text-center">Zmień zdjęcie</h5>
+                    <div class="text-center">
+                        <input type="file" name="file" accept="image/*">
+                        <input type="submit" value="Załaduj">
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-light">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="modalLabel" th:text="#{Create}"></h5>
+                <button type="button" class="close text-right text-light" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <form class="text-center upload" id="upload-animal">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="image-create" th:text="#{image}"></label>
+                            <input type="file" name="file" class="form-control-file" id="image-create"
+                                   accept="image/*"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="species-create" th:text="#{animal.species}" class="required"></label>
+                            <select id="species-create" class="form-control">
+                                <option th:each="species : ${speciesDict}"
+                                        th:value="${species.id}"
+                                        th:text="${species.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="breed-create" th:text="#{animal.breed}" class="required"></label>
+                            <select id="breed-create" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="name-create" th:text="#{animal.name}" class="required"></label>
+                            <input id="name-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="lineage-name-create" th:text="#{animal.lineage.name}"></label>
+                            <input id="lineage-name-create" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="gender-create" th:text="#{gender}" class="required"></label>
+                            <select id="gender-create" class="form-control">
+                                <option th:each="gender : ${genderDict}"
+                                        th:value="${gender.code}"
+                                        th:text="${gender.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="chip-number-create" th:text="#{chip.number}"></label>
+                            <input id="chip-number-create" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="lineage-number-create" th:text="#{animal.lineage.number}"></label>
+                            <input id="lineage-number-create" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="weight-create" th:text="#{weight}"></label>
+                            <input id="weight-create" type="number" class="form-control" step="0.001" max="15">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="cattery-status-create" th:text="#{cattery.status}" class="required"></label>
+                            <select id="cattery-status-create" class="form-control">
+                                <option value="">---</option>
+                                <option th:each="status : ${catteryStatusCodeDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="price-create" th:text="#{price}"></label>
+                            <input id="price-create" type="number"
+                                   class="form-control" max="10000" step="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="mother-create" th:text="#{mother}" class="required"></label>
+                            <div class="col-md-1"></div>
+                            <input type="checkbox" id="mother-outside">
+                            <label class="px-2 my-auto form-check-label" th:text="#{animal.outside.cattery}"></label>
+                            <select id="mother-create" class="form-control"></select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="father-create" th:text="#{father}" class="required"></label>
+                            <div class="col-md-1"></div>
+                            <input type="checkbox" id="father-outside">
+                            <label class="px-2 my-auto form-check-label" th:text="#{animal.outside.cattery}"></label>
+                            <select id="father-create" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="birth-date-create" th:text="#{birth.date}" class="double-required"></label>
+                            <input id="birth-date-create" type="date" class="form-control" value="" lang="pl-CA">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="color-create" th:text="#{color}"></label>
+                            <input id="color-create" type="text" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="sale-status-create" th:text="#{sale.status}"></label>
+                            <select id="sale-status-create" class="form-control" disabled>
+                                <option th:each="status : ${saleStatusDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="births-create" th:text="#{birth}" class="double-required"></label>
+                            <select id="births-create" class="form-control">
+                                <option value="">---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note-create" th:text="#{note}"></label>
+                        <div class="align-middle"><textarea id="note-create" type="text" class="form-control" rows="3"
+                                                            value=""></textarea></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="website-description-create" th:text="#{website.description}"></label>
+                            <input id="website-description-create" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="website-visibility-status-create"
+                                   th:text="#{website.visibility.status}"></label>
+                            <select id="website-visibility-status-create" class="form-control">
+                                <option th:each="status : ${websiteVisibilityStatusDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-justify">
+                        <a th:text="#{birth.date.comment}"></a>
+                        <br><br>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" id="create-button" class="btn btn-success"
+                                th:text="#{Create}"></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{Cancel}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/pagination :: pagination"></div>
+<div th:replace="fragments/operation-successful-modal :: modal"></div>
+<div th:replace="fragments/delete-object-modal :: modal"></div>
+<div th:replace="fragments/cattery_invalid_data_modal :: modal"></div>
+
+</body>
+
+</html>

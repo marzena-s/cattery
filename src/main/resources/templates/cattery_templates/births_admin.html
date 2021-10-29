@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/cattery_css/admin.css}"/>
+    <div th:replace="fragments/cattery_head"></div>
+    <script th:src="@{/libs/sha.js}"></script>
+    <script th:src="@{/js/cattery_js/births_admin.js}"></script>
+    <script th:inline="javascript">
+        var websiteVisibilityStatusDict = [[${websiteVisibilityStatusDict}]];
+
+
+
+    </script>
+
+</head>
+
+<body>
+<nav th:replace="fragments/menu :: menu"></nav>
+<div>
+    <h5 class="text-light text-uppercase text-center">Mioty</h5>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn btn-success btn-xl" data-toggle="modal" data-target="#create-modal"
+            th:text="#{Create}"></button>
+</div>
+
+<form id="filter" class="able-filter text-light border m-0 p-0 my-3">
+    <div class="form-row m-0 p-0">
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{birth.name}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <input type="text" id="name-filter" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{mother}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="mother-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="mothersDict : ${mothersDict}"
+                            th:value="${mothersDict.id}"
+                            th:text="${mothersDict.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row col-12 col-lg-6 border m-0 p-0 py-2">
+            <label class="col-12 col-sm-3 col-md-2 col-xl-3 my-auto text-center" th:text="#{father}"></label>
+            <div class="col-12 col-sm-9 col-md-10 col-xl-9 my-auto">
+                <select id="father-filter" class="form-control">
+                    <option value="">---</option>
+                    <option th:each="fathersDict : ${fathersDict}"
+                            th:value="${fathersDict.id}"
+                            th:text="${fathersDict.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="result-container" class="my-4">
+    <div class="table-responsive mb-0 pb-0">
+        <table class="table text-light table-bordered table-hover table-sm mb-0 pb-0">
+            <thead>
+            <tr class="text-light table-header">
+                <th class="align-middle" th:text="#{mother}"></th>
+                <th class="align-middle" th:text="#{father}"></th>
+                <th class="align-middle" th:text="#{birth.name}"></th>
+                <th class="align-middle" th:text="#{birth.date}"></th>
+                <th class="align-middle" th:text="#{birth.amount}"></th>
+                <th class="align-middle" th:text="#{details}"></th>
+                <th class="align-middle" th:text="#{Delete}"></th>
+            </tr>
+            </thead>
+            <tbody id="records">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-right text-light" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <div class="form-group form-row">
+                    <input id="id" type="text" hidden>
+                </div>
+                <form class="text-center">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="name-details" th:text="#{birth.name}" class="required"></label>
+                            <input id="name-details" type="text" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="amount-details" th:text="#{birth.amount}"></label>
+                            <input id="amount-details" type="number" class="form-control" step="1" min="1" max="15"
+                                   readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="mother-details" th:text="#{mother}"></label>
+                            <select id="mother-details" class="form-control">
+                                <option th:each="animal : ${mothersDict}"
+                                        th:value="${animal.id}"
+                                        th:text="${animal.value}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="father-details" th:text="#{father}"></label>
+                            <select id="father-details" class="form-control">
+                                <option th:each="animal : ${fathersDict}"
+                                        th:value="${animal.id}"
+                                        th:text="${animal.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 text-center">
+                            <label for="birth-date-details" th:text="#{birth.date}" class="required"></label>
+                            <input id="birth-date-details" type="date" class="form-control" value="">
+                        </div>
+                        <div class="form-group col-md-6 text-center">
+                            <label for="website-visibility-status-details"
+                                   th:text="#{website.visibility.status}"></label>
+                            <select id="website-visibility-status-details" class="form-control">
+                                <option th:each="status : ${websiteVisibilityStatusDict}"
+                                        th:value="${status.code}"
+                                        th:text="${status.value}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note-details" th:text="#{note}"></label>
+                        <div class="align-middle"><textarea id="note-details" type="text" class="form-control" rows="3"
+                                                            value=""></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website-description" th:text="#{website.description}"></label>
+                        <div class="align-middle"><textarea id="website-description" type="text" class="form-control"
+                                                            rows="3" value=""></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website-details-description" th:text="#{website.details.description}"></label>
+                        <div class="align-middle"><textarea id="website-details-description" type="text"
+                                                            class="form-control" rows="3" value=""></textarea></div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="update-button" class="btn btn-success"
+                                onclick="sendUpdateRequest('update')"
+                                th:text="#{Save.changes}"></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{Cancel}"></button>
+                    </div>
+                </form>
+                <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
+                    <h5 class="text-center">Zdjęcie główne:</h5>
+                    <div class="text-center my-3" id="main-image-details">
+                    </div>
+
+                    <form id="upload-birth-main-photo" class="upload">
+                        <h5 class="text-center">Zmień zdjęcie</h5>
+                        <div class="text-center">
+                            <input type="file" name="file" accept="image/*">
+                            <input type="submit" value="Załaduj">
+                        </div>
+                    </form>
+                </div>
+                <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
+                    <h5 class="text-center">Zdjęcia miotu:</h5>
+                    <form id="upload-birth-photos" class="upload">
+                        <h5 class="text-center">Doadj/Zmień zdjęcia</h5>
+                        <div class="text-center my-3" id="images-details">
+                        </div>
+                        <div class="form-row">
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-one" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-two" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-three" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-four" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-five" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                            <div class="text-center col-md-4 border">
+                                <input type="file" id="file-six" name="file" accept="image/*">
+                                <input type="submit" value="Załaduj">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-grey text-light">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel" th:text="#{Create}"></h5>
+                <button type="button" class="close text-right text-light" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <form class="text-center upload" id="upload-birth">
+                    <form class="text-center">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="create-file">Zdjęcie główne</label>
+                                <input type="file" name="file" class="form-control-file" id="create-file"
+                                       accept="image/*"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 text-center">
+                                <label for="name-create" th:text="#{birth.name}" class="required"></label>
+                                <input id="name-create" type="text" class="form-control" value="">
+                            </div>
+                            <div class="form-group col-md-6 text-center">
+                                <label for="amount-create" th:text="#{birth.amount}"></label>
+                                <input id="amount-create" type="number" class="form-control" step="1" min="1" max="15"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 text-center">
+                                <label for="mother-create" th:text="#{mother}"></label>
+                                <select id="mother-create" class="form-control">
+                                    <option th:each="animal : ${mothersDict}"
+                                            th:value="${animal.id}"
+                                            th:text="${animal.value}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 text-center">
+                                <label for="father-create" th:text="#{father}"></label>
+                                <select id="father-create" class="form-control">
+                                    <option th:each="animal : ${fathersDict}"
+                                            th:value="${animal.id}"
+                                            th:text="${animal.value}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 text-center">
+                                <label for="birth-date-create" th:text="#{birth.date}" class="required"></label>
+                                <input id="birth-date-create" type="date" class="form-control" value="">
+                            </div>
+                            <div class="form-group col-md-6 text-center">
+                                <label for="website-visibility-status-create"
+                                       th:text="#{website.visibility.status}"></label>
+                                <select id="website-visibility-status-create" class="form-control">
+                                    <option th:each="status : ${websiteVisibilityStatusDict}"
+                                            th:value="${status.code}"
+                                            th:text="${status.value}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="note-create" th:text="#{note}"></label>
+                            <div class="align-middle"><textarea id="note-create" type="text" class="form-control"
+                                                                rows="3" value=""></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="website-description-create" th:text="#{website.description}"></label>
+                            <div class="align-middle"><textarea id="website-description-create" type="text"
+                                                                class="form-control" rows="3" value=""></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="website-details-description-create"
+                                   th:text="#{website.details.description}"></label>
+                            <div class="align-middle"><textarea id="website-details-description-create" type="text"
+                                                                class="form-control" rows="3" value=""></textarea></div>
+                        </div>
+<!--                        <div class="form-row">-->
+<!--                            <a>Zdjęcia miotu</a>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="file" name="file" class="form-control-file" id="create-file-first"-->
+<!--                                       accept="image/*"/>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="file" name="file" class="form-control-file" id="create-file-second"-->
+<!--                                       accept="image/*"/>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="file" name="file" class="form-control-file" id="create-file-third"-->
+<!--                                       accept="image/*"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="text-center">
+                            <button type="submit" id="create-button" class="btn btn-success"
+                                    th:text="#{Create}"></button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    th:text="#{Cancel}"></button>
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/pagination :: pagination"></div>
+<div th:replace="fragments/operation-successful-modal :: modal"></div>
+<div th:replace="fragments/delete-object-modal :: modal"></div>
+<div th:replace="fragments/cattery_invalid_data_modal :: modal"></div>
+
+</body>
+
+</html>
