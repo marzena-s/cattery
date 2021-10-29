@@ -23,11 +23,6 @@ public class BreedService {
         return breedRepository.findById(id).get();
     }
 
-//    public List<Breed> findAll() {
-//        Iterable<Breed> breeds = breedRepository.findAll();
-//        return StreamSupport.stream(breeds.spliterator(), false).collect(Collectors.toList());
-//    }
-
     public List<Breed> findBy(BreedFilter filter) {
         return breedSearch.findBy(filter);
     }
