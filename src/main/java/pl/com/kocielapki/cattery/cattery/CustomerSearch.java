@@ -45,9 +45,13 @@ public class CustomerSearch {
         cq.where(predicates.toArray(new Predicate[0]));
 
         TypedQuery<Customer> query = entityManager.createQuery(cq);
-        return query.setFirstResult(getFirstResult(filter))
-                .setMaxResults(filter.getPageSize().intValue())
-                .getResultList();
+        if (filter.getPageSize() != null) {
+            return query.setFirstResult(getFirstResult(filter))
+                    .setMaxResults(filter.getPageSize().intValue())
+                    .getResultList();
+        } else {
+            return query.getResultList();
+        }
     }
 
     private int getFirstResult(CustomerFilter filter) {

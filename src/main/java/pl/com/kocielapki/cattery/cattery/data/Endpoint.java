@@ -137,7 +137,7 @@ public class Endpoint {
             @RequestParam(name = "last_name", required = false) String lastName,
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
-            @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
+            @RequestParam(name = "page_size", required = false) Long pageSize) {
 
         List<Customer> customers = customerService.findBy(new CustomerFilter(firstName, lastName, city, page, pageSize));
         return customersToResponses(customers);
@@ -185,9 +185,7 @@ public class Endpoint {
                                               @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
                                               @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
 
-       List<Transaction> transactions = transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
-       return  transactions;
-//        return transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
+       return transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
     }
 
     @PostMapping(path = "/admin/api/transaction", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
