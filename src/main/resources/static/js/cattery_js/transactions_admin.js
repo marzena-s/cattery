@@ -6,15 +6,9 @@ $(document).ready(function () {
         clearCreateModal();
     });
 
-// $('#details-modal').on('shown.bs.modal', function() {
-//    refreshCustomers();
-//    refreshAnimals();
-// });
-
 
  $('#create-modal').on('shown.bs.modal', function() {
-    refreshCustomers();
-    refreshAnimals();
+    refreshCustomers("create", null);
  });
 
  $("#filter input, #filter select, [form='filter']").on("change", function () {
@@ -126,17 +120,16 @@ function prepareDetailsButton(id) {
  }
 
 function showDetails(id) {
-//    getTransaction(id);
-    refreshCustomers(id);
+    refreshCustomers("details", id);
 }
 
 
 function hideCancelButton(transaction) {
     if(transaction.status === 'C'){
         document.getElementById('cancel-button').style.visibility = 'hidden';
-        } else {
+     } else {
         document.getElementById('cancel-button').style.visibility = 'visible';
-        }
+    }
 }
 
 
@@ -229,19 +222,19 @@ function sendUpdateRequest(source) {
         })
 }
 
-function refreshCustomers(transactionId){
+function refreshCustomers(source, transactionId){
        $('#customer-create').empty();
        $('#customer-details').empty();
-       findCustomers(transactionId);
+       findCustomers(source, transactionId);
    }
 
-   function refreshAnimals(transactionId){
+   function refreshAnimals(source, transactionId){
           $('#animal-create').empty();
           $('#animal-details').empty();
-          findAnimals(transactionId);
+          findAnimals(source, transactionId);
       }
 
-function findCustomers(transactionId) {
+function findCustomers(source, transactionId) {
 
          $.ajax({
              url: "/admin/api/customers",
@@ -254,17 +247,17 @@ function findCustomers(transactionId) {
                 $('#customer-create').append('<option value='+ customer.id +'> '+ customer.firstName + ' ' + customer.lastName + ' </option>');
                 $('#customer-details').append('<option value='+ customer.id +'> '+ customer.firstName + ' ' + customer.lastName + ' </option>');
             });
-             refreshAnimals(transactionId);
+             refreshAnimals(source, transactionId);
          })
          .fail(function(jqxhr, textStatus, errorThrown){
              displayErrorInformation(jqxhr.responseText);
          });
 }
 
-function findAnimals(transactionId) {
+function findAnimals(source, transactionId) {
 
          $.ajax({
-             url: "/admin/api/animals?" + prepareAnimalUrl(transactionId),
+             url: "/admin/api/animals?" + prepareAnimalUrl(),
              type: "get",
              dataType: "json",
              contentType: "application/json"
@@ -273,16 +266,19 @@ function findAnimals(transactionId) {
             response.forEach(function(animal){
                 $('#animal-create').append('<option value='+ animal.id +'> '+ animal.name + ' ' + prepareText(animal.lineageName) + ' </option>');
                 $('#animal-details').append('<option value='+ animal.id +'> '+ animal.name + ' ' + prepareText(animal.lineageName) + ' </option>');
-            });
-                getTransaction(transactionId);
 
+            });
+
+            if(source == "details"){
+                getTransaction(transactionId);
+            };
          })
          .fail(function(jqxhr, textStatus, errorThrown){
              displayErrorInformation(jqxhr.responseText);
          });
 }
 
-function prepareAnimalUrl(transactionId) {
+function prepareAnimalUrl() {
     var url = "";
     url+= "&sale_status=F";
     url+= "&cattery_status=FS";

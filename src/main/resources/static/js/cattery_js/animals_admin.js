@@ -471,7 +471,6 @@ function setSaleStatusAndPriceDetails(animal){
         $("#price").prop("disabled", true);
     } else {
         $("#sale-status").val(animal.saleStatusCode);
-//        $("#sale-status").prop("disabled", false);
         $("#price").prop("disabled", false);
     };
 };

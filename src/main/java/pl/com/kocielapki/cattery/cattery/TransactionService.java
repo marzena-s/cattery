@@ -89,7 +89,7 @@ public class TransactionService {
     }
 
     private void setTransactionStatus(Transaction transaction) {
-        if(transaction.getFinalDate()!=null || transaction.getPrice()!=null){
+        if(transaction.getFinalDate()!=null){
             transaction.setStatus(TransactionStatus.FINISHED.getValue());
         } else {
             transaction.setStatus(TransactionStatus.IN_PROGRESS.getValue());

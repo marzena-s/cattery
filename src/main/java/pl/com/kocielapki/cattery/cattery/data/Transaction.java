@@ -56,6 +56,7 @@ public class Transaction {
     }
 
     public Transaction(TransactionRest request) {
+        this.id = request.getId();
         this.status = request.getStatus();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-LL-dd");
         if (!request.getReservationDate().isEmpty() && request.getReservationDate() != null) {

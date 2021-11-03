@@ -61,6 +61,7 @@ function prepareUrl() {
              url += "&city=" + city;
          }
 
+    url += "&page_size=" + 10;
     url += preparePaginationUrl();
     return url;
 }

@@ -125,7 +125,6 @@ public class Animal {
         this.note = request.getNote();
         this.websiteDescription = request.getWebsiteDescription();
         this.websiteVisibilityStatus = request.getWebsiteVisibilityStatus();
-//        DateTimeFormatter deleteFormatter = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
         if (request.getDeleteDateTime() != null) {
             this.deleteDateTime = LocalDateTime.parse(request.getDeleteDateTime());
         }
