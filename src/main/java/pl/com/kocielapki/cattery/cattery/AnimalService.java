@@ -105,13 +105,21 @@ public class AnimalService {
             animalToUpdate.setDeleteDateTime(LocalDateTime.now());
         } else {
             validateAnimalData(request);
+            Image animalImage = getImage(request);
             animalToUpdate = new Animal(request);
             validateParents(request, animalToUpdate);
+            animalToUpdate.setImage(animalImage);
             animalToUpdate.setBreed(breedService.get(request.getBreedId()));
             Birth birth = getBirthAndSetFields(request, animalToUpdate);
             animalToUpdate.setBirth(birth);
         }
         animalRepository.save(animalToUpdate);
+    }
+
+    private Image getImage(AnimalRest request) {
+        Animal animalToUpdate;
+        animalToUpdate = get(request.getId());
+        return animalToUpdate.getImage();
     }
 
     private void validateParents(AnimalRest request, Animal animalToUpdate) {
