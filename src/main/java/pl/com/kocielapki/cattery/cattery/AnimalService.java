@@ -117,8 +117,7 @@ public class AnimalService {
     }
 
     private Image getImage(AnimalRest request) {
-        Animal animalToUpdate;
-        animalToUpdate = get(request.getId());
+        Animal animalToUpdate = get(request.getId());
         return animalToUpdate.getImage();
     }
 

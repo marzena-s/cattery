@@ -4,7 +4,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import pl.com.kocielapki.cattery.cattery.api.AnimalRest;
 import pl.com.kocielapki.cattery.cattery.api.BirthRest;
+import pl.com.kocielapki.cattery.cattery.data.Animal;
 import pl.com.kocielapki.cattery.cattery.data.Birth;
 import pl.com.kocielapki.cattery.cattery.data.BirthFilter;
 import pl.com.kocielapki.cattery.cattery.data.Image;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -63,17 +66,24 @@ public class BirthService {
             birthToUpdate.setDeleteDateTime(LocalDateTime.now());
         } else {
             validateData(request);
+            Image birthImage = getImage(request);
             birthToUpdate = new Birth(request);
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.UPDATE.getValue());
             birthToUpdate.setMother(animalService.get(request.getMotherId()));
             birthToUpdate.setFather(animalService.get(request.getFatherId()));
+            birthToUpdate.setImage(birthImage);
         }
         birthRepository.save(birthToUpdate);
     }
 
+    private Image getImage(BirthRest request) {
+        Birth birthToUpdate = get(request.getId());
+        return birthToUpdate.getImage();
+    }
+
+
     private void validateData(BirthRest request) {
         validateName(request.getName(), "Nazwa miotu");
-//        validateAmount(request.getAmount());
         validateDate(request);
 
     }
@@ -87,6 +97,20 @@ public class BirthService {
     }
 
     public void updatePhoto(Long birthId, MultipartFile image) {
+        validateFile(image);
+        Birth birth = get(birthId);
+        if(birth.getImage()!= null) {
+            String oldFileName = birth.getImage().getImageFileName();
+            imageService.deleteImageFromServer(oldFileName);
+            imageService.deleteImage(oldFileName);
+        }
+        String newFileName = imageService.create(image);
+        Image newImage = imageService.findImageByName(newFileName);
+        birth.setImage(newImage);
+        birthRepository.save(birth);
+    }
+
+    public void updatePhotos(Long birthId, MultipartFile image) {
         validateFile(image);
         Birth birth = get(birthId);
         if(birth.getImage()!= null) {

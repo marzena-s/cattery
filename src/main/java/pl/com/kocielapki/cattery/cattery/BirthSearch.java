@@ -40,6 +40,11 @@ public class BirthSearch {
             predicates.add(namePredicate);
         }
 
+        if (filter.getWebsiteVisibilityStatus() != null) {
+            Predicate namePredicate = cb.equal(birth.get("websiteVisibilityStatus"),  filter.getWebsiteVisibilityStatus());
+            predicates.add(namePredicate);
+        }
+
         Predicate deleteDatetimePredicate = cb.isNull(birth.get("deleteDateTime"));
         predicates.add(deleteDatetimePredicate);
         cq.where(predicates.toArray(new Predicate[0]));

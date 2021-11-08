@@ -67,9 +67,10 @@ public class Endpoint {
             @RequestParam(name = "mother_id", required = false) Long motherId,
             @RequestParam(name = "father_id", required = false) Long fatherId,
             @RequestParam(name = "birth_name", required = false) String birthName,
+            @RequestParam(name = "website_visibility_status", required = false) String websiteVisibilityStatus,
             @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
-        List<Birth> births = birthService.findBy(new BirthFilter(motherId, fatherId, birthName, page, pageSize));
+        List<Birth> births = birthService.findBy(new BirthFilter(motherId, fatherId, birthName, websiteVisibilityStatus, page, pageSize));
         return birthsToResponses(births);
     }
 
@@ -100,8 +101,8 @@ public class Endpoint {
     }
 
     @PutMapping("/admin/api/birth/{id}/photos")
-    public void updateBirthPhotos(@RequestParam("file") MultipartFile image, @PathVariable Long id) {
-        birthService.updatePhoto(id, image);
+    public void updateBirthPhotos(@RequestParam("file") MultipartFile images, @PathVariable Long id) {
+        birthService.updatePhoto(id, images);
         //todo
     }
 
@@ -315,7 +316,7 @@ public class Endpoint {
     @GetMapping(
             value = "/admin/animal/file/{name}",
             produces = MediaType.IMAGE_GIF_VALUE)
-    public @ResponseBody byte[] getFile(@PathVariable(name = "name") String fileName) {
+    public @ResponseBody byte[] getAnimalFile(@PathVariable(name = "name") String fileName) {
         return imageService.getImage(fileName);
     }
 

@@ -57,6 +57,37 @@ $(document).ready(function () {
           event.preventDefault();
     });
 
+     $("#birth_images").submit(function(event){
+
+    var data = new FormData();
+    jQuery.each(jQuery('#birth_images')[0].files, function(i, file) {
+        if(file!=null){
+            data.push(file);
+        }
+       console.log(file.name);
+    });
+             var birthId = $("#id").val();
+             $.ajax({
+                 type: "put",
+                 enctype: 'multipart/form-data',
+                 url: "/admin/api/birth/" + birthId +"/photo",
+                 data: data,
+                 contentType: false,
+                 cache: false,
+                 processData:false,
+                 success: function (response) {
+                    window.location.reload();
+                 },
+                 error: function (jqxhr, textStatus, errorThrown) {
+                    $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
+                    $("#invalid-data-modal").modal('show');
+                 }
+              });
+              event.preventDefault();
+        });
+
+
+
 
 // $("#upload-birth-photo").submit(function(event){
 //    var birthId = $("#id").val();
@@ -235,37 +266,6 @@ function showDetailsModal(birth) {
          $("#website-details-description-create").val('');
      }
 
-//function sendCreateRequest() {
-//         $.ajax({
-//             url: "/admin/api/birth",
-//             method: "post",
-//             contentType: "application/json",
-//             data:
-//             JSON.stringify({
-//                 name: $("#name-create").val(),
-//                 birthDate: $("#birth-date-create").val(),
-//                 motherId: $("#mother-create").val(),
-//                 fatherId: $("#father-create").val(),
-//                 amount: $("#amount-create").val(),
-////                 image: $("#create-file").val(),
-//                 note: $("#note-create").val(),
-//                 websiteDescription: $("#website-description-create").val(),
-//                 websiteDetailsDescription: $("#website-details-description-create").val(),
-//                 websiteVisibilityStatus:  $("#website-visibility-status-create").find(":selected").val()
-//             })
-//         })
-//         .done(function () {
-//              $("#create-modal").modal('hide');
-//              $("#operation-successful-modal").modal('show');
-//              $(".modal-backdrop").remove();
-//              findBirths();
-//         })
-//         .fail(function (jqxhr, textStatus, errorThrown) {
-//               $("#create-button").prop( "disabled", false );
-//               $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
-//               $("#invalid-data-modal").modal('show');
-//         })
-//}
 
 function sendUpdateRequest(source) {
      var birthId;
@@ -289,7 +289,7 @@ function sendUpdateRequest(source) {
             note: $("#note-details").val(),
             websiteDescription: $("#website-description").val(),
             websiteDetailsDescription: $("#website-details-description").val(),
-            websiteVisibilityStatus:  $("#website-visibility-status").find(":selected").val(),
+            websiteVisibilityStatus:  $("#website-visibility-status-details").find(":selected").val(),
             source: source
         })
     })

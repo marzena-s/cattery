@@ -12,6 +12,8 @@
 
 
 
+
+
     </script>
 
 </head>
@@ -136,8 +138,7 @@
                             <input id="birth-date-details" type="date" class="form-control" value="">
                         </div>
                         <div class="form-group col-md-6 text-center">
-                            <label for="website-visibility-status-details"
-                                   th:text="#{website.visibility.status}"></label>
+                            <label for="website-visibility-status-details" th:text="#{website.visibility.status}"></label>
                             <select id="website-visibility-status-details" class="form-control">
                                 <option th:each="status : ${websiteVisibilityStatusDict}"
                                         th:value="${status.code}"
@@ -188,34 +189,37 @@
                         <h5 class="text-center">Doadj/Zmień zdjęcia</h5>
                         <div class="text-center my-3" id="images-details">
                         </div>
-                        <div class="form-row">
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-one" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
+                        <form id="birth_images" class="upload">
+                            <div class="form-row">
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-1" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-2" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-3" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
                             </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-two" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
+                            <div class="form-row">
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-4" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-5" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
+                                <div class="text-center col-md-4 border">
+                                    <input type="file" id="file-6" name="file" accept="image/*">
+<!--                                    <input type="submit" value="Załaduj">-->
+                                </div>
                             </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-three" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-four" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-five" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-six" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                        </div>
+                            <input type="submit" value="Załaduj">
+                        </form>
                     </form>
                 </div>
             </div>
@@ -308,21 +312,21 @@
                             <div class="align-middle"><textarea id="website-details-description-create" type="text"
                                                                 class="form-control" rows="3" value=""></textarea></div>
                         </div>
-<!--                        <div class="form-row">-->
-<!--                            <a>Zdjęcia miotu</a>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-first"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-second"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-third"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="form-row">-->
+                        <!--                            <a>Zdjęcia miotu</a>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="file" name="file" class="form-control-file" id="create-file-first"-->
+                        <!--                                       accept="image/*"/>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="file" name="file" class="form-control-file" id="create-file-second"-->
+                        <!--                                       accept="image/*"/>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <input type="file" name="file" class="form-control-file" id="create-file-third"-->
+                        <!--                                       accept="image/*"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="text-center">
                             <button type="submit" id="create-button" class="btn btn-success"
                                     th:text="#{Create}"></button>
