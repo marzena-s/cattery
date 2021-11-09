@@ -155,6 +155,7 @@ $(document).ready(function () {
                 $("#create-button").prop( "disabled", false );
                 $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
                 $("#invalid-data-modal").modal('show');
+                $('#create-modal').css('overflow-y', 'auto');
              }
           });
           event.preventDefault();
@@ -581,7 +582,7 @@ function sendUpdateRequest(source) {
         .fail(function (jqxhr, textStatus, errorThrown) {
             $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
             $("#invalid-data-modal").modal('show');
-
+            $('#details-modal').css('overflow-y', 'auto');
             $("#save-changes-button").prop( "disabled", false );
             $("#delete-object-modal").modal('hide');
         })

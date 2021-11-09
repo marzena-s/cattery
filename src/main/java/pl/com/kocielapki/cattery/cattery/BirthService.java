@@ -41,6 +41,7 @@ public class BirthService {
         validateData(request);
         Birth birth = new Birth(request);
         createAndSetImage(request, birth);
+        validateWebsiteStatus(request);
         birth.setMother(animalService.get(request.getMotherId()));
         birth.setFather(animalService.get(request.getFatherId()));
         birth.setAmount(0L);
@@ -67,6 +68,7 @@ public class BirthService {
             Set<Image> birthDetailImages = birthToUpdate.getBirthsImages();
             birthToUpdate = new Birth(request);
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.UPDATE.getValue());
+            validateWebsiteStatus(request);
             birthToUpdate.setMother(animalService.get(request.getMotherId()));
             birthToUpdate.setFather(animalService.get(request.getFatherId()));
             birthToUpdate.setImage(birthImage);
@@ -79,6 +81,23 @@ public class BirthService {
         validateName(request.getName(), "Nazwa miotu");
         validateDate(request);
 
+    }
+
+    private void validateWebsiteStatus(BirthRest request) {
+        if(request.getWebsiteVisibilityStatus().equals(WebsiteVisibilityStatus.VISIBLE.getValue())){
+            if(request.getName() == null){
+                throw new IllegalArgumentException("Uzupełnij nazwę");
+            }
+            if(request.getWebsiteDescription() == null){
+                throw new IllegalArgumentException("Uzupełnij opis na stronę, gdy status na stronie jest widoczny");
+            }
+            if(request.getWebsiteDetailsDescription() == null){
+                throw new IllegalArgumentException("Uzupełnij opis szczegółowy na stronę, gdy status na stronie jest widoczny");
+            }
+            if(request.getImage() == null){
+                throw new IllegalArgumentException("Uzupełnij zdjęcie główne, gdy status na stronie jest widoczny");
+            }
+        }
     }
 
     private void createAndSetImage(BirthRest request, Birth birth) {

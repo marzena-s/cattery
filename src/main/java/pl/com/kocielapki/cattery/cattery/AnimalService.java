@@ -45,6 +45,7 @@ public class AnimalService {
 
         Animal animal = new Animal(request);
         createAndSetImage(request, animal);
+        validateWebsiteStatus(animal);
         setSaleStatus(request, animal);
         animal.setBreed(breedService.get(request.getBreedId()));
         Birth birth =  getBirthAndSetFields(request, animal);
@@ -111,6 +112,7 @@ public class AnimalService {
             animalToUpdate.setImage(animalImage);
             animalToUpdate.setBreed(breedService.get(request.getBreedId()));
             Birth birth = getBirthAndSetFields(request, animalToUpdate);
+            validateWebsiteStatus(animalToUpdate);
             animalToUpdate.setBirth(birth);
         }
         animalRepository.save(animalToUpdate);
@@ -168,6 +170,20 @@ public class AnimalService {
         validateIfIsNullOrEmpty(request.getGenderCode(), AnimalDataName.GENDER.getValue());
         validateIfIsNullOrEmpty(request.getCatteryStatusCode(), AnimalDataName.CATTERY_STATUS.getValue());
         validateIfIsNullOrEmpty(request.getSaleStatusCode(), AnimalDataName.SALE_STATUS.getValue());
+    }
+
+    private void validateWebsiteStatus(Animal animal) {
+        if(animal.getWebsiteVisibilityStatus().equals(WebsiteVisibilityStatus.VISIBLE.getValue())){
+            if(animal.getLineageName() == null || "".equals(animal.getLineageName())){
+                throw new IllegalArgumentException("Uzupełnij nazwę z rodowodu, gdy status na stronę jest widoczny");
+            }
+            if(animal.getWebsiteDescription() == null || "".equals(animal.getWebsiteDescription())){
+                throw new IllegalArgumentException("Uzupełnij opis na stronę, gdy status na stronie jest widoczny");
+            }
+            if(animal.getImage() == null){
+                throw new IllegalArgumentException("Uzupełnij zdjęcie główne, gdy status na stronie jest widoczny");
+            }
+        }
     }
 
     private void validateIfIsNullOrEmpty(String data, String dataName) {
