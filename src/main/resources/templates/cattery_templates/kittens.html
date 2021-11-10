@@ -26,6 +26,35 @@
 
 </form>
 
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog" style="margin-top: 100px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-light text-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-right text-secondary" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <form class="text-center">
+                    <span><strong>
+                        <a id="birth-name"></a>
+                    </strong></span>
+                    <br><span>
+                        <a id="website-details-description"></a>
+                    </span><br>
+                    <div id="images-births">
+                    </div>
+                    <br><br>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer th:replace="fragments/cattery_footer"></footer>
 

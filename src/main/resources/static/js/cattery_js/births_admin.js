@@ -140,12 +140,14 @@ function findBirths() {
     });
 }
 
-function fillBirthImages(birth) {
-       birth.birthsImages.forEach(function(image){
-            if(image != null){
-                 $('#' + image);
-            }
-       })
+function showBirthImages(birth) {
+    var number=1;
+    birth.birthsImages.forEach(function(image){
+        if(image != null){
+            $('#file-'+number).append(prepareImageToShow(image.imageFileName));
+            number++;
+        }
+    });
 }
 
  function prepareImageToShow(imageFileName){
@@ -253,6 +255,9 @@ function showDetailsModal(birth) {
         $("#main-image-details").append(
         prepareImageToShow(birth.image.imageFileName)
         );
+    };
+    if(birth.birthsImages != null){
+        showBirthImages(birth);
     };
     $('#details-modal').modal('show');
 }

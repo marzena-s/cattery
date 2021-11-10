@@ -57,13 +57,95 @@ function prepareBirthToShow(birth){
     }  else {
         return '<div></div>'
     }
-
 }
 
 function prepareImageToShow(imageFileName){
     return '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail">';
 }
 
+
 function prepareDetailsButton(id) {
-    return '<button type="button" class="btn btn-secondary" onclick="#">' + lang.Details + '</button>';
+    return '<button type="button" class="btn btn-secondary"  onclick="showDetails(' + id + ')">' + lang.Details + '</button>';
+ }
+
+ function showDetails(id) {
+     getBirth(id);
+ }
+
+ function getBirth(id) {
+     $.ajax({
+         url: "/admin/api/birth/" + id,
+         type: "get",
+         dataType: "json",
+         contentType: "application/json"
+     })
+     .done(function (birth) {
+         showDetailsModal(birth);
+     })
+     .fail(function(jqxhr, textStatus, errorThrown){
+         displayErrorInformation(jqxhr.responseText);
+     });
+ }
+
+ function showDetailsModal(birth) {
+     $("#birth-name").text('Miot: ' + birth.name),
+     $("#website-details-description").text(birth.websiteDetailsDescription);
+     if(birth.birthsImages != null){
+         showBirthImages(birth);
+     };
+     $('#details-modal').modal('show');
+ }
+
+ function showBirthImages(birth) {
+     var firstImage = null;
+     var secondImage = null;
+     var thirdImage = null;
+     var images = birth.birthsImages;
+     $('#images-births').empty();
+     for (var i = 0; i < images.length; i+=3) {
+        firstImage = images[i];
+        if((i+1) != images.length){
+            secondImage = images[i+1];
+        }
+        if((i+2) != images.length){
+           thirdImage = images[i+2];
+        }
+        $('#images-births').append(
+        showDetailsImages(firstImage, secondImage, thirdImage)
+        );
+        firstImage = null;
+        secondImage = null;
+        thirdImage = null;
+     }
+}
+
+ function showDetailsImages(firstImage, secondImage, thirdImage){
+    if(thirdImage == null){
+        return('<div class="form-row">' +
+                '<div class="p-3 col-md-3">' +
+                        prepareImageToShow(firstImage.imageFileName)+
+                    '</div>' +
+                    '<div class="p-3 col-md-3">' +
+                        prepareImageToShow(secondImage.imageFileName)+
+                    '</div>' +
+                '</div>');
+    } else if(secondImage == null){
+        return('<div class="form-row">' +
+                '<div class="p-3 col-md-3">' +
+                        prepareImageToShow(firstImage.imageFileName)+
+                '</div>' +
+            '</div>');
+    } else {
+        return('<div class="form-row">' +
+                '<div class="p-3 col-md-4">' +
+                    prepareImageToShow(firstImage.imageFileName)+
+                '</div>' +
+                '<div class="p-3 col-md-4">' +
+                    prepareImageToShow(secondImage.imageFileName)+
+                '</div>' +
+                '<div class="p-3 col-md-4">' +
+                    prepareImageToShow(thirdImage.imageFileName)+
+                '</div>' +
+            '</div>');
+    }
  }
