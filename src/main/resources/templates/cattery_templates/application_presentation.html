@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 col-sm-11 col-xs-11 mb-2 ml-5 p-4 text-left">
+    <h1 class="text-uppercase text-secondary">APPLICATION PRESENTATION</h1>
+</div>
+<h3 class="text-uppercase text-secondary text-center pt-3">THE WEBSITE WITH THE ADMINISTRATION PANEL FOR THE MAINE COON CATTERY</h3>
+<form class="bg-white p-1 ml-5 border-top col-md-11 col-sm-11 col-xs-11  text-justify" style="text-indent: 8%;">
+    <a> My application is used in Maine Coon cattery in Silesia in Poland. It contains two parts - the website and the
+        administration panel.<br>
+        The website containing photos and information on running cattery and the animals helps future customers choose
+        the right cattery and buy some animal. In addiction in this part you can find the location and the contact information and what's more
+        you can use the contact form to contact with the cattery.<br>
+        There is also administration panel for the breeder  which helps them change some information on the website and check the
+        messages sent by contact form. This panel has got also more tools. Firstly it contains the animal records, where the breeder can
+        save a lot of important information about all animals and births. Secondly you can find there some customer and purchase records.<br>
+        For more details, see the rest of the presentation.
+    </a>
+    <br>
+    <div class="form-row text-center">
+        <h3 class="text-uppercase text-secondary text-center pt-3">THE WEBSITE PART</h3>
+
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_robin_1.jpg" alt="cattery.robin" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-5">
+            <figure>
+                <img src="/img/cattery/cattery_ares_1.jpg" alt="cattery.ares" class="photo-two-in-line"></a>
+            </figure>
+        </div>
+    </div>
+    <br>
+    <a>
+        Mimo groźnego wyglądu i dużych rozmiarów są to przekochane, łagodne
+        i bardzo przyjacielskie koty. To właśnie jest charakterystyczne dla tej rasy, że koty są bardzo przyjazne i
+        towarzyskie. Bardzo łatwo nawiązują kontakty z ludźmi, których traktują jak najlepszych przyjaciół. Mimo, że
+        mogą osiągać spore rozmiary i wagę (samce od 5 do 11 kg a kotki od 5 do 8 kg), cechują się łagodnością i
+        delikatnością. Dlatego idealnie sprawdzają się w roli przyjaciela dla dzieci czy osób starszych. Z własnego
+        doświadczenia mogę powiedzieć, że koty tej rasy świetnie aklimatyzują się w nowych warunkach, świetnie czują
+        się w towarzystwie innych kotów, a nawet psów, które z czasem potrafią sobie nawet podporządkować. Jeżeli
+        będą Państwo zainteresowani zakupem kotków z mojej hodowli zapraszam do kontaktu.
+        <br>
+        Pozdrawiam serdecznie Joanna Kacprzycka.
+        <br><br>
+    </a>
+</form>
+<div class="form-row text-center">
+    <div class="col-md-1"></div>
+    <div class="col-sm-10 col-md-10 col-xs-10">
+        <figure>
+            <img src="/img/cattery/cattery_group_1.jpg" alt="cattery.group" style="width: 60%; height: auto;"></a>
+        </figure>
+    </div>
+</div>
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+</body>
+</html>
