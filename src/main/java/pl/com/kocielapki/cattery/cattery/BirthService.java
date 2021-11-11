@@ -4,9 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import pl.com.kocielapki.cattery.cattery.api.AnimalRest;
 import pl.com.kocielapki.cattery.cattery.api.BirthRest;
-import pl.com.kocielapki.cattery.cattery.data.Animal;
 import pl.com.kocielapki.cattery.cattery.data.Birth;
 import pl.com.kocielapki.cattery.cattery.data.BirthFilter;
 import pl.com.kocielapki.cattery.cattery.data.Image;
@@ -59,28 +57,23 @@ public class BirthService {
 
 
     public void update(BirthRest request) {
-        Birth birthToUpdate;
+        Birth birthToUpdate = get(request.getId());
         if (SourceUpdateStatus.DELETE.getValue().equals(request.getSource())) {
-            birthToUpdate = get(request.getId());
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.DELETE.getValue());
             birthToUpdate.setDeleteDateTime(LocalDateTime.now());
         } else {
             validateData(request);
-            Image birthImage = getImage(request);
+            Image birthImage = birthToUpdate.getImage();
+            Set<Image> birthDetailImages = birthToUpdate.getBirthsImages();
             birthToUpdate = new Birth(request);
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.UPDATE.getValue());
             birthToUpdate.setMother(animalService.get(request.getMotherId()));
             birthToUpdate.setFather(animalService.get(request.getFatherId()));
             birthToUpdate.setImage(birthImage);
+            birthToUpdate.setBirthsImages(birthDetailImages);
         }
         birthRepository.save(birthToUpdate);
     }
-
-    private Image getImage(BirthRest request) {
-        Birth birthToUpdate = get(request.getId());
-        return birthToUpdate.getImage();
-    }
-
 
     private void validateData(BirthRest request) {
         validateName(request.getName(), "Nazwa miotu");
@@ -146,15 +139,6 @@ public class BirthService {
             }
     }
 
-//    private void validateAmount(Long amount) {
-//        if (amount == null) {
-//            throw new IllegalArgumentException("Podaj ilość kotów w miocie");
-//        }
-//        if (amount <= 0 || amount > 15) {
-//            throw new IllegalArgumentException("Podaj poprawną ilość kotów w miocie");
-//        }
-//    }
-
     public void validateName(String name, String nameDescription) {
         if (name == null || name.equals("")) {
             throw new IllegalArgumentException("Podaj nazwę miotu");
@@ -168,7 +152,6 @@ public class BirthService {
             throw new IllegalArgumentException(dataName + " zawiera zbyt wiele znaków, max " + maxLength + " znaków");
         }
     }
-
 
     private void checkIfDateIsCorrect(LocalDate date) {
         if (date == null) {
