@@ -153,4 +153,9 @@ public class ApplicationController {
         return"cattery_templates/transactions_admin";
     }
 
+    @GetMapping({"/presentation"})
+    public String presentation() {
+        return"cattery_templates/application_presentation";
+    }
+
 }
