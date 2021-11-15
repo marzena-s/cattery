@@ -14,6 +14,7 @@ import pl.com.kocielapki.cattery.config.ApplicationConfig;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,14 +60,17 @@ public class ImageService {
         return imageRepository.findByImageFileName(name);
     }
 
-    public byte[] getImage(String fileName) {
+    public byte[] getImage(String fileName) throws IOException {
+        InputStream in = null;
         try {
             File file = ResourceUtils.getFile(applicationConfig.getPathToImagesFolder() + fileName);
-            InputStream in = new FileInputStream(file);
+            in = new FileInputStream(file);
             return IOUtils.toByteArray(in);
         } catch (Exception e) {
             log.error("Error during getting file");
             return null;
+        } finally {
+            in.close();
         }
     }
 
