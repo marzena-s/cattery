@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+    <script th:src="@{/js/cattery_js/kittens.js}"></script>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 col-sm-11 col-xs-11 mb-2 ml-5 p-4 text-left">
+    <h1 class="text-uppercase text-secondary">KOCIĘTA</h1>
+</div>
+<form class="bg-white p-1 border-top col-md-11 col-sm-11 col-xs-11 text-justify" style="text-indent: 8%;">
+    <h3 class="text-uppercase text-secondary text-center pt-3">
+        MIOTY
+    </h3>
+
+    <div id="records_births">
+    </div>
+
+</form>
+
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog" style="margin-top: 100px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content bg-light text-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Szczegóły</h5>
+                <button type="button" class="close text-right text-secondary" style="position:absolute; top:0; right:0;"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <div class="modal-body">
+                <form class="text-center">
+                    <span><strong>
+                        <a id="birth-name"></a>
+                    </strong></span>
+                    <br><span>
+                        <a id="website-details-description"></a>
+                    </span><br>
+                    <div id="images-births">
+                    </div>
+                    <br><br>
+                    <br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+</body>
+</html>

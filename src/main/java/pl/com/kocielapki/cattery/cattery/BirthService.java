@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -56,24 +57,26 @@ public class BirthService {
 
 
     public void update(BirthRest request) {
-        Birth birthToUpdate;
+        Birth birthToUpdate = get(request.getId());
         if (SourceUpdateStatus.DELETE.getValue().equals(request.getSource())) {
-            birthToUpdate = get(request.getId());
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.DELETE.getValue());
             birthToUpdate.setDeleteDateTime(LocalDateTime.now());
         } else {
             validateData(request);
+            Image birthImage = birthToUpdate.getImage();
+            Set<Image> birthDetailImages = birthToUpdate.getBirthsImages();
             birthToUpdate = new Birth(request);
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.UPDATE.getValue());
             birthToUpdate.setMother(animalService.get(request.getMotherId()));
             birthToUpdate.setFather(animalService.get(request.getFatherId()));
+            birthToUpdate.setImage(birthImage);
+            birthToUpdate.setBirthsImages(birthDetailImages);
         }
         birthRepository.save(birthToUpdate);
     }
 
     private void validateData(BirthRest request) {
         validateName(request.getName(), "Nazwa miotu");
-//        validateAmount(request.getAmount());
         validateDate(request);
 
     }
@@ -87,6 +90,20 @@ public class BirthService {
     }
 
     public void updatePhoto(Long birthId, MultipartFile image) {
+        validateFile(image);
+        Birth birth = get(birthId);
+        if(birth.getImage()!= null) {
+            String oldFileName = birth.getImage().getImageFileName();
+            imageService.deleteImageFromServer(oldFileName);
+            imageService.deleteImage(oldFileName);
+        }
+        String newFileName = imageService.create(image);
+        Image newImage = imageService.findImageByName(newFileName);
+        birth.setImage(newImage);
+        birthRepository.save(birth);
+    }
+
+    public void updatePhotos(Long birthId, MultipartFile image) {
         validateFile(image);
         Birth birth = get(birthId);
         if(birth.getImage()!= null) {
@@ -122,15 +139,6 @@ public class BirthService {
             }
     }
 
-//    private void validateAmount(Long amount) {
-//        if (amount == null) {
-//            throw new IllegalArgumentException("Podaj ilość kotów w miocie");
-//        }
-//        if (amount <= 0 || amount > 15) {
-//            throw new IllegalArgumentException("Podaj poprawną ilość kotów w miocie");
-//        }
-//    }
-
     public void validateName(String name, String nameDescription) {
         if (name == null || name.equals("")) {
             throw new IllegalArgumentException("Podaj nazwę miotu");
@@ -144,7 +152,6 @@ public class BirthService {
             throw new IllegalArgumentException(dataName + " zawiera zbyt wiele znaków, max " + maxLength + " znaków");
         }
     }
-
 
     private void checkIfDateIsCorrect(LocalDate date) {
         if (date == null) {

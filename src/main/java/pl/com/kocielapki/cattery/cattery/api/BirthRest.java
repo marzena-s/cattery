@@ -54,6 +54,10 @@ public class BirthRest {
         if(birth.getImage() != null){
             this.image = birth.getImage();
         }
+        if(birth.getBirthsImages() != null){
+            this.birthsImages = birth.getBirthsImages();
+        }
+
     }
 
     public BirthRest(String name, String birthDate, Long motherId, Long fatherId, String note, String websiteDescription, String websiteDetailsDescription, String websiteVisibilityStatus, MultipartFile file) {

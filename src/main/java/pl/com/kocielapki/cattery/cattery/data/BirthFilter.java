@@ -4,14 +4,16 @@ public class BirthFilter {
     private Long motherId;
     private Long fatherId;
     private String birthName;
+    private String websiteVisibilityStatus;
     private Long page;
     private Long pageSize;
 
 
-    public BirthFilter(Long motherId, Long fatherId, String birthName, Long page, Long pageSize) {
+    public BirthFilter(Long motherId, Long fatherId, String birthName, String websiteVisibilityStatus, Long page, Long pageSize) {
         this.motherId = motherId;
         this.fatherId = fatherId;
         this.birthName = birthName;
+        this.websiteVisibilityStatus = websiteVisibilityStatus;
         this.page = page;
         this.pageSize = pageSize;
     }
@@ -26,6 +28,10 @@ public class BirthFilter {
 
     public String getBirthName() {
         return birthName;
+    }
+
+    public String getWebsiteVisibilityStatus() {
+        return websiteVisibilityStatus;
     }
 
     public Long getPage() {

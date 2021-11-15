@@ -93,6 +93,11 @@ public class ApplicationController {
         return"cattery_templates/our_animals";
     }
 
+    @GetMapping({"/kocieta"})
+    public String kittens() {
+        return"cattery_templates/kittens";
+    }
+
     @GetMapping({"/opieka"})
     public String careForCats() {
         return"cattery_templates/care_for_cats";
