@@ -56,6 +56,10 @@ public class ImageService {
         }
     }
 
+    public Image get(Long id) {
+        return imageRepository.findById(id).get();
+    }
+
     public Image findImageByName(String name) {
         return imageRepository.findByImageFileName(name);
     }
@@ -69,7 +73,8 @@ public class ImageService {
         } catch (Exception e) {
             log.error("Error during getting file");
             return null;
-        } finally {
+        }
+        finally {
             in.close();
         }
     }

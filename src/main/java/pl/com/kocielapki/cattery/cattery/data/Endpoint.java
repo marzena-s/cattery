@@ -10,6 +10,7 @@ import pl.com.kocielapki.cattery.logic.DictionariesService;
 import pl.com.kocielapki.cattery.logic.DictionaryType;
 import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,6 @@ public class Endpoint {
     @PutMapping(path = "/admin/api/birth/{id}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     public void updateBirth(@PathVariable Long id, @RequestBody BirthRest request) {
         birthService.update(request);
-
     }
 
     @PutMapping("/admin/api/birth/{id}/photo")
@@ -100,10 +100,9 @@ public class Endpoint {
         birthService.updatePhoto(id, image);
     }
 
-    @PutMapping("/admin/api/birth/{id}/photos")
-    public void updateBirthPhotos(@RequestParam("file") MultipartFile images, @PathVariable Long id) {
-        birthService.updatePhoto(id, images);
-        //todo
+    @PutMapping("/admin/api/birth/{id}/details_photo")
+    public void addBirthPhotos(@RequestParam("file") MultipartFile image, @PathVariable Long id) {
+        birthService.addDetailsPhoto(id, image);
     }
 
     @GetMapping(path = "/api/animal_disease/{id}", produces = "application/json; charset=UTF-8")
@@ -316,14 +315,15 @@ public class Endpoint {
     @GetMapping(
             value = "/admin/animal/file/{name}",
             produces = MediaType.IMAGE_GIF_VALUE)
-    public @ResponseBody byte[] getAnimalFile(@PathVariable(name = "name") String fileName) {
-        return imageService.getImage(fileName);
+    public @ResponseBody byte[] getAnimalFile(@PathVariable(name = "name") String fileName) throws IOException {
+            return imageService.getImage(fileName);
+
     }
 
     @GetMapping(
             value = "/admin/birth/file/{name}",
             produces = MediaType.IMAGE_GIF_VALUE)
-    public @ResponseBody byte[] getBirthFile(@PathVariable(name = "name") String fileName) {
+    public @ResponseBody byte[] getBirthFile(@PathVariable(name = "name") String fileName) throws IOException {
         return imageService.getImage(fileName);
     }
 

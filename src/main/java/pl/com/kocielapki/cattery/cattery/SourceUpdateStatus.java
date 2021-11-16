@@ -6,7 +6,8 @@ import java.util.Map;
 public enum SourceUpdateStatus {
     DELETE("delete"),
     UPDATE("update"),
-    CANCEL("cancel");
+    CANCEL("cancel"),
+    DELETE_BIRTH_IMAGE("delete_birth_image");
 
     private String value;
 

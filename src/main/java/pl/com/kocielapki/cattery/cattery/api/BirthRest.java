@@ -19,6 +19,7 @@ public class BirthRest {
     private Long amount;
     private Image image;
     private String note;
+    private Long imageToDeleteId;
     private String websiteDescription;
     private String websiteDetailsDescription;
     private String websiteVisibilityStatus;
@@ -57,6 +58,7 @@ public class BirthRest {
         if(birth.getBirthsImages() != null){
             this.birthsImages = birth.getBirthsImages();
         }
+
 
     }
 
@@ -134,5 +136,9 @@ public class BirthRest {
 
     public Set<Image> getBirthsImages() {
         return birthsImages;
+    }
+
+    public Long getImageToDeleteId() {
+        return imageToDeleteId;
     }
 }

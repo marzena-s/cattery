@@ -88,7 +88,7 @@ function prepareDetailsButton(id) {
  }
 
  function showDetailsModal(birth) {
-     $("#birth-name").text('Miot: ' + birth.name),
+     $("#birth-name").text('Miot ' + birth.name),
      $("#website-details-description").text(birth.websiteDetailsDescription);
      if(birth.birthsImages != null){
          showBirthImages(birth);
@@ -120,31 +120,31 @@ function prepareDetailsButton(id) {
 }
 
  function showDetailsImages(firstImage, secondImage, thirdImage){
-    if(thirdImage == null){
+    if(secondImage == null){
         return('<div class="form-row">' +
-                '<div class="p-3 col-md-3">' +
-                        prepareImageToShow(firstImage.imageFileName)+
-                    '</div>' +
-                    '<div class="p-3 col-md-3">' +
-                        prepareImageToShow(secondImage.imageFileName)+
+                    '<div class="p-3 col-md-4">' +
+                            prepareImageToShow(firstImage.imageFileName) +
                     '</div>' +
                 '</div>');
-    } else if(secondImage == null){
-        return('<div class="form-row">' +
-                '<div class="p-3 col-md-3">' +
-                        prepareImageToShow(firstImage.imageFileName)+
-                '</div>' +
-            '</div>');
-    } else {
+    } else if(thirdImage == null){
         return('<div class="form-row">' +
                 '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(firstImage.imageFileName)+
+                        prepareImageToShow(firstImage.imageFileName) +
+                    '</div>' +
+                    '<div class="p-3 col-md-4">' +
+                        prepareImageToShow(secondImage.imageFileName) +
+                    '</div>' +
+                '</div>');
+    }  else {
+        return('<div class="form-row">' +
+                '<div class="p-3 col-md-4">' +
+                    prepareImageToShow(firstImage.imageFileName) +
                 '</div>' +
                 '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(secondImage.imageFileName)+
+                    prepareImageToShow(secondImage.imageFileName) +
                 '</div>' +
                 '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(thirdImage.imageFileName)+
+                    prepareImageToShow(thirdImage.imageFileName) +
                 '</div>' +
             '</div>');
     }
