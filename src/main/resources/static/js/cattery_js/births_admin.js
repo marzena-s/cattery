@@ -179,7 +179,7 @@ function prepareDeleteDetailsImageButton(imageId) {
 
 
 function prepareImageToShow(imageFileName){
-    return  '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" width="300px" height="300px">';
+    return  '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" width="300px" max-height="300px">';
 }
 
 
