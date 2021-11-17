@@ -28,10 +28,6 @@ function prepareUrl(websiteVisibilityStatus) {
 function fillResults(response, gender) {
     $("#records_births").empty();
     var births = response;
-//    births.forEach(function(birth){
-//        showBirth(birth);
-//    });
-
     var firstBirth;
     var secondBirth;
     for (var i = 0; i < births.length; i+=2) {
