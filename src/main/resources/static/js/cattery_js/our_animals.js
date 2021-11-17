@@ -88,5 +88,5 @@ function prepareAnimalToShow(animal){
 }
 
 function prepareImageToShow(imageFileName){
-    return '<img src="/admin/animal/file/'+ imageFileName +'/" class="img-thumbnail">';
+    return '<img src="/admin/animal/file/'+ imageFileName +'/" class="img-thumbnail" style="max-height:300px">';
 }

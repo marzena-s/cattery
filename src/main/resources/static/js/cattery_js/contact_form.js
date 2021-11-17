@@ -10,7 +10,7 @@ function sendCreateRequest() {
                  phoneNumber: $("#phone_number").val(),
                  messageTopic: $("#message_topic").val(),
                  content: $("#content").val(),
-                 regulationAccepted: $("#regulation").prop('checked')regulationAccepted: $("#regulation").prop('checked')
+                 regulationAccepted: $("#regulation").prop('checked')
              })
          })
          .done(function () {

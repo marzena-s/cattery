@@ -39,9 +39,9 @@ public class BirthService {
 
     public void create(BirthRest request) {
         validateData(request);
+        validateWebsiteStatus(request);
         Birth birth = new Birth(request);
         createAndSetImage(request, birth);
-        validateWebsiteStatus(request);
         birth.setMother(animalService.get(request.getMotherId()));
         birth.setFather(animalService.get(request.getFatherId()));
         birth.setAmount(0L);
@@ -62,7 +62,7 @@ public class BirthService {
         if (SourceUpdateStatus.DELETE.getValue().equals(request.getSource())) {
             validateAmountOfAnimals(birthToUpdate, SourceUpdateStatus.DELETE.getValue());
             birthToUpdate.setDeleteDateTime(LocalDateTime.now());
-        } else {
+        } else if(SourceUpdateStatus.UPDATE.getValue().equals(request.getSource())) {
             validateData(request);
             Image birthImage = birthToUpdate.getImage();
             Set<Image> birthDetailImages = birthToUpdate.getBirthsImages();
@@ -73,6 +73,13 @@ public class BirthService {
             birthToUpdate.setFather(animalService.get(request.getFatherId()));
             birthToUpdate.setImage(birthImage);
             birthToUpdate.setBirthsImages(birthDetailImages);
+        } else if(SourceUpdateStatus.DELETE_BIRTH_IMAGE.getValue().equals(request.getSource())){
+            Set<Image> images = birthToUpdate.getBirthsImages();
+            Image imageToDelete = imageService.get(request.getImageToDeleteId());
+            images.removeIf(e -> e.equals(imageToDelete));
+            birthToUpdate.setBirthsImages(images);
+            imageService.deleteImage(imageToDelete.getImageFileName());
+            imageService.deleteImageFromServer(imageToDelete.getImageFileName());
         }
         birthRepository.save(birthToUpdate);
     }
@@ -85,16 +92,16 @@ public class BirthService {
 
     private void validateWebsiteStatus(BirthRest request) {
         if(request.getWebsiteVisibilityStatus().equals(WebsiteVisibilityStatus.VISIBLE.getValue())){
-            if(request.getName() == null){
+            if(request.getName() == null || "".equals(request.getName())){
                 throw new IllegalArgumentException("Uzupełnij nazwę");
             }
-            if(request.getWebsiteDescription() == null){
+            if(request.getWebsiteDescription() == null || "".equals(request.getWebsiteDescription())){
                 throw new IllegalArgumentException("Uzupełnij opis na stronę, gdy status na stronie jest widoczny");
             }
-            if(request.getWebsiteDetailsDescription() == null){
+            if(request.getWebsiteDetailsDescription() == null || "".equals(request.getWebsiteDetailsDescription())){
                 throw new IllegalArgumentException("Uzupełnij opis szczegółowy na stronę, gdy status na stronie jest widoczny");
             }
-            if(request.getImage() == null){
+            if("".equals(request.getFile().getOriginalFilename())){
                 throw new IllegalArgumentException("Uzupełnij zdjęcie główne, gdy status na stronie jest widoczny");
             }
         }
@@ -122,23 +129,25 @@ public class BirthService {
         birthRepository.save(birth);
     }
 
-    public void updatePhotos(Long birthId, MultipartFile image) {
+    public void addDetailsPhoto(Long birthId, MultipartFile image) {
         validateFile(image);
         Birth birth = get(birthId);
-        if(birth.getImage()!= null) {
-            String oldFileName = birth.getImage().getImageFileName();
-            imageService.deleteImageFromServer(oldFileName);
-            imageService.deleteImage(oldFileName);
-        }
-        String newFileName = imageService.create(image);
-        Image newImage = imageService.findImageByName(newFileName);
-        birth.setImage(newImage);
+        validateDetailsPhotosAmount(birth);
+        String fileName = imageService.create(image);
+        birth.getBirthsImages().add(imageService.findImageByName(fileName));
         birthRepository.save(birth);
     }
 
     private void validateFile(MultipartFile file) {
         if(file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Musisz wybrać zdjęcie");
+        }
+    }
+
+    private void validateDetailsPhotosAmount(Birth birth) {
+        Set<Image> images = birth.getBirthsImages();
+        if(images.size() >= 6){
+            throw new IllegalArgumentException("Nie można dodać więcej zdjęć.");
         }
     }
 
