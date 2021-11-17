@@ -113,17 +113,7 @@ function findBirths() {
 }
 
 function showBirthImages(birth) {
-    var number=1;
-//    birth.birthsImages.forEach(function(image){
-//        if(image != null){
-//            $('#file-'+number).append(
-//            '<div>' + prepareImageToShow(image.imageFileName) + '</div>' +
-//            '<div>' + prepareDeleteDetailsImageButton(image.id, birth.id) + '</div>'
-//            );
-//            number++;
-//        }
-//    });
-        $('#images-births').empty();
+     $('#images-births').empty();
      var firstImage = null;
      var secondImage = null;
      var thirdImage = null;
@@ -187,9 +177,6 @@ function prepareDeleteDetailsImageButton(imageId) {
     return '<button type="button" class="btn btn-danger" id="delete-button" onclick="sendUpdateRequest(\'delete_birth_image\','+ imageId +')">' + lang.Delete +'</button>';
 }
 
-function deleteDetailsImage(id){
-
-}
 
 function prepareImageToShow(imageFileName){
     return  '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" width="300px" height="300px">';

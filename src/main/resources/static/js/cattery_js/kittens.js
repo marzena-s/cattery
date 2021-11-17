@@ -28,19 +28,31 @@ function prepareUrl(websiteVisibilityStatus) {
 function fillResults(response, gender) {
     $("#records_births").empty();
     var births = response;
-    births.forEach(function(birth){
-        showBirth(birth);
-    });
+//    births.forEach(function(birth){
+//        showBirth(birth);
+//    });
 
+    var firstBirth;
+    var secondBirth;
+    for (var i = 0; i < births.length; i+=2) {
+        firstBirth = births[i];
+        if((i+1) != births.length){
+            secondBirth = births[i+1];
+        }
+        showBirths(firstBirth, secondBirth);
+        firstBirth = null;
+        secondBirth = null;
+        }
 }
 
 
-function showBirth(birth) {
+function showBirths(firstBirth, secondBirth) {
     $('#records_births').append(
         '<div class="rounded bg-light shadow-sm my-5 p-3 text-center">' +
             '<div class="form-row text-center">' +
-                '<div class="col-md-2"></div>' +
-                prepareBirthToShow(birth) +
+                '<div class="col-md-2"></div>'+
+                prepareBirthToShow(firstBirth) +
+                prepareBirthToShow(secondBirth) +
             '</div>' +
         '</div>'
     );
@@ -52,7 +64,7 @@ function prepareBirthToShow(birth){
                     '<span><strong>' + birth.name + '</strong></span><br><br>' +
                     prepareImageToShow(birth.image.imageFileName) +
                     '<br><br><span>' + birth.websiteDescription + '</span><br><br>'+
-                    '<div>' + prepareDetailsButton(birth.id) + '</div>'
+                    prepareDetailsButton(birth.id) +
                 '</div>';
     }  else {
         return '<div></div>'
@@ -60,7 +72,7 @@ function prepareBirthToShow(birth){
 }
 
 function prepareImageToShow(imageFileName){
-    return '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail">';
+    return '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" style="max-height:300px">';
 }
 
 
