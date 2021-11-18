@@ -27,7 +27,4 @@ public class BreedRest {
         return shortName;
     }
 
-//    public Species getSpecies() {
-//        return species;
-//    }
 }

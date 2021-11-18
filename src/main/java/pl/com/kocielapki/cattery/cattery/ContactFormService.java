@@ -34,9 +34,6 @@ public class ContactFormService {
 
     public List<ContactForm> findBy(ContactFormFilter filter) {
         return contactFormSearch.findBy(filter);
-//        Iterable<ContactForm> contactForms = contactFormRepository.findByDeleteDateTimeIsNull();
-//        //warunek delete datetime dodać do metody z filtra
-//        return StreamSupport.stream(contactForms.spliterator(), false).collect(Collectors.toList());
     }
 
 
