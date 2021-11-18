@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/cattery_front_head"></div>
+    <link rel="stylesheet" th:href="@{/cattery_css/pages.css}"/>
+</head>
+
+<body>
+<div>
+    <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>
+</div>
+
+
+<div class="col-md-8 col-sm-11 col-xs-11 mb-2 ml-5 p-4 text-left">
+    <h1 class="text-uppercase text-secondary">APPLICATION OVERVIEW</h1>
+</div>
+<h3 class="text-uppercase text-secondary text-center pt-3">THE WEBSITE WITH THE ADMINISTRATION PANEL FOR THE MAINE COON
+    CATTERY</h3>
+<form class="bg-white p-1 ml-5 border-top col-md-11 col-sm-11 col-xs-11  text-justify" style="text-indent: 8%;">
+    <a> My application is used in Maine Coon cattery in Silesia in Poland. It contains two parts - the website and the
+        administration panel.<br>
+        The website containing photos and information on running cattery and the animals helps future customers choose
+        the right cattery and buy some animal. In addiction in this part you can find the location and the contact
+        information and what's more
+        you can use the contact form to contact with the cattery.<br>
+        There is also administration panel for the breeder which helps them change some information on the website and
+        check the
+        messages sent by contact form. This panel has got also more tools. Firstly it contains the animal records, where
+        the breeder can
+        save a lot of important information about all animals and births. Secondly you can find there some customer and
+        purchase records.<br>
+        For more details, see the rest of the presentation.
+    </a>
+    <br>
+    <h3 class="text-uppercase text-secondary text-center pt-3">THE WEBSITE PART</h3>
+    <br>
+    <h5 class="text-uppercase text-secondary text-center pt-3">CHANGING NAVBAR</h5>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/main_page.jpg" alt="main.page" class="photo-two-in-line-bigger">
+                <figcaption>Semitransparent navbar.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/main_page_scroll.png" alt="main.page.scroll" class="photo-two-in-line-bigger">
+                <figcaption>Full color navbar during scrolling.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/main_page_little.png" alt="main.page.little" class="photo-two-in-line-bigger">
+                <figcaption>Collapsed navbar when a screen is smaller.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <br>
+    <h5 class="text-uppercase text-secondary text-center pt-3">BIRTHS PAGE</h5>
+    <a> User can decide how many births show up on the website. What's more main photo, amount and kind of details
+        photos with all descriptions can
+        be set and change in every moment by the breeder from the panel admin.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/births.png" alt="births" class="photo-two-in-line-bigger">
+                <figcaption>The list of births.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/birth_details.png" alt="birth.details" class="photo-two-in-line-bigger">
+                <figcaption>Births details modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <h5 class="text-uppercase text-secondary text-center pt-3">OUR CATS PAGE</h5>
+    <a> As in the birth page user decides how many animals will appear on the website. Every photo and every description
+        can be update in every moment by the panel.
+        The animals are divided into two groups - men and women.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/our_cats.png" alt="our.cats" class="photo-two-in-line-bigger">
+                <figcaption>Our cats page.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/our_cats_2.png" alt="our.cats" class="photo-two-in-line-bigger">
+                <figcaption>Our cats page.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <h5 class="text-uppercase text-secondary text-center pt-3">OPINION PAGE</h5>
+    <a> The opinions are facebook plugins, it means that users are up to date with all likes and comments and they can
+        be transferred to the Facebook with
+        a single click.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/opinions.png" alt="opinions" class="photo-two-in-line-bigger">
+                <figcaption>The opinion page.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/opinions2.png" alt="opinions" class="photo-two-in-line-bigger">
+                <figcaption>The opinion page.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <h5 class="text-uppercase text-secondary text-center pt-3">CONTACT PAGE</h5>
+    <a> This is the place with the contact form, which after completing the relevant data enables easy and quick contact
+        with the breeder.
+        All reports appear in the panel admin, which I'm going to show you in the next part. On this page are embed the
+        cattery's fanpage
+        and the Google map.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/contact.png" alt="contact" class="photo-two-in-line-bigger">
+                <figcaption>The contact form with facebook plugin.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/contact2.png" alt="contact" class="photo-two-in-line-bigger">
+                <figcaption>The Google map.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <br>
+    <h3 class="text-uppercase text-secondary text-center pt-3">THE PANEL ADMIN PART</h3>
+    <br>
+    <h5 class="text-uppercase text-secondary text-center pt-3">LOGIN</h5>
+    <a> This is the place where the breeder can log in to the panel admin. The login data are inserted by the developer
+        from the database. After
+        successful login user can easily change from the website to the panel thanks to the customized navbar.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/login_page.png" alt="login.page" class="photo-two-in-line-bigger">
+                <figcaption>The login page.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/login_navbar.png" alt="login.navbar" class="photo-two-in-line-bigger">
+                <figcaption>The navbar after login.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h5 class="text-uppercase text-secondary text-center pt-3">CONTACT FORM NOTIFICATIONS</h5>
+    <a>All messages from the contact form the breeder can find in the list. The list can be filter by the name and the
+        service status. The pagination and the choosing number of records per site are also available.
+        In the details modal there is more information and there is the possibility to set the message as served if it's
+        not.</a>
+
+    <div class="form-row">
+        <div class="col-md-2"></div>
+        <div class="col-sm-10 col-md-8 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/contact_list_admin.png" alt="contact.list" class="photo-two-in-line-bigger">
+                <figcaption>The contact list.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-2"></div>
+        <div class="col-sm-10 col-md-8 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/contact_form_modal_admin.png" alt="contact.details"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The details modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h5 class="text-uppercase text-secondary text-center pt-3">CUSTOMERS</h5>
+    <a>This is the place where the customers and the information about them are collected. In the filterable list there
+        are all customers with the basic information.
+        The available filters are first name, last name and city. Where there is more than 10 records the user can go to
+        the next page or choose the bigger
+        number of records per site. Adding new customer is done using the create modal, and after that you can edit it
+        via the details modal. When the customer
+        has got non-canceled transaction it isn't possible to delete that.</a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/customers_list_admin.png" alt="customers.list" class="photo-two-in-line-bigger">
+                <figcaption>The customers list.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/customers_create_admin.png" alt="customers.create"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The create modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/customers_details_admin.png" alt="customers.details"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The details modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h5 class="text-uppercase text-secondary text-center pt-3">TRANSACTIONS</h5>
+    <a>In this place there are all transactions, transaction means someone buys or reserves a cat. The table can be
+        filter by customer first name,
+        customer last name, animal name, animal lineage name, sale status and transaction status. Create modal allows
+        adding new transaction and details
+        modal allows updating them. The user can choose a customer and an non sold and unreserved animal from drop-down
+        lists. While doing reservations, sales and cancellations
+        the transaction status and animal sale status is changing.
+    </a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/transaction_list_admin.png" alt="transaction.list"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The transactions list.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/transaction_create_admin.png" alt="transaction.create"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The create modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/transaction_details_admin.png" alt="transaction.details"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The details modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h5 class="text-uppercase text-secondary text-center pt-3">ANIMALS</h5>
+    <a>Firstly there is the list of animals. This can be filter by name, lineage name, gender, cattery status, sale
+        status, website visibility status.
+        Delete option doesn't work when the animal is connected with some transaction and it isn't cancelled.
+        <br>
+        Adding animals has got a few ways - for the cattery and for sale, so this has got many functions and
+        possibilities. Some fields became disabled and
+        set automatically depends on what the way the user choose and it can come back to the initial state when the
+        breeder change the way. In this
+        modal the user can choose the mother and the father from a drop-down list, and based on selections, the births
+        results that also appear in
+        a drop-down list are loaded. There is also the possibility to choose parents outside the cattery, then setting
+        the birth date is required and
+        setting the birth is disabled. What's more in both ways appropriate statuses are set. Setting the website
+        visibility status has got another
+        requirements depends on the website needing. There is also the possibility to add a photo with animal. The
+        details modal works in a similar way
+        but there existing animals are changed.
+
+
+    </a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/animals_list_admin.png" alt="animals.list" class="photo-two-in-line-bigger">
+                <figcaption>The animals list.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/animals_create_admin.png" alt="animals.create" class="photo-two-in-line-bigger">
+                <figcaption>The create modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/animals_details_admin.png" alt="animals.details"
+                     class="photo-two-in-line-bigger">
+                <figcaption>The details modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <h5 class="text-uppercase text-secondary text-center pt-3">BIRTHS</h5>
+    <a> As before, the list has a filtering option. The user can filter by birth name, mother and father. Pagination
+        options are also similar.
+        The amount of animals in a birth changes automatically when adding a cat to the birth.
+        Adding birth is also via the modal when user has to set or choose from a drop-down list the appropriate data.
+        Setting the website visibility
+        status has got another requirements depends on the website needing. Uploading images is also available. Details
+        modal is used for
+        read more information, watch photos and update them.
+        There is no way to delete the birth containing any animals.
+
+
+    </a>
+    <div class="form-row text-center">
+        <div class="col-md-1 "></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/birth_list_admin.png" alt="births.list" class="photo-two-in-line-bigger">
+                <figcaption>The births list.</figcaption>
+            </figure>
+        </div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/birth_create_admin.png" alt="births.create" class="photo-two-in-line-bigger">
+                <figcaption>The create modal.</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-sm-10 col-md-5 col-xs-10 p-3">
+            <figure>
+                <img src="/img/overview/birth_details_admin.png" alt="births.details" class="photo-two-in-line-bigger">
+                <figcaption>The details modal. Upload details photos part.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <br>
+    <h3 class="text-uppercase text-secondary text-center pt-3">CONCLUSION</h3>
+    <br>
+    <a> To make this application I used:</a>
+    <ul>
+        <li>Java 11.0.5 + Spring</li>
+        <li>Hibernate</li>
+        <li>SQL</li>
+        <li>JavaScript + JQuery</li>
+        <li>HTML + CSS</li>
+        <li>GIT</li>
+    </ul>
+<br><br>
+    <a>The code is available on my GitHub:</a>
+    <a href="https://github.com/marzena-s/cattery.git">LINK</a><br>
+    <a> Thank you for your time and I hope you enjoyed. If you have any questions, please do not hesitate to contact me.</a><br>
+    <a> Marzena Szafron</a>
+
+</form>
+<footer th:replace="fragments/cattery_footer"></footer>
+
+</main>
+</body>
+</html>
