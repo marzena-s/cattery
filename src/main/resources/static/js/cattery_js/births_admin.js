@@ -135,6 +135,7 @@ function showBirthImages(birth) {
      }
 }
 
+
 function showDetailsImages(firstImage, secondImage, thirdImage, birth){
     if(secondImage == null){
         return('<div class="form-row">' +

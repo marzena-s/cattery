@@ -1,8 +1,10 @@
 package pl.com.kocielapki.cattery.cattery;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kocielapki.cattery.cattery.api.TransactionRest;
+import pl.com.kocielapki.cattery.cattery.data.Customer;
 import pl.com.kocielapki.cattery.cattery.data.TransactionFilter;
 import pl.com.kocielapki.cattery.cattery.repo.TransactionRepository;
 import pl.com.kocielapki.cattery.cattery.data.Animal;
@@ -20,7 +22,7 @@ public class TransactionService {
     private TransactionSearch transactionSearch;
     private TransactionCategoryService transactionCategoryService;
 
-    public TransactionService(TransactionRepository transactionRepository, AnimalService animalService, CustomerService customerService, TransactionSearch transactionSearch, TransactionCategoryService transactionCategoryService) {
+    public TransactionService(TransactionRepository transactionRepository, AnimalService animalService, @Lazy CustomerService customerService, TransactionSearch transactionSearch, TransactionCategoryService transactionCategoryService) {
         this.transactionRepository = transactionRepository;
         this.animalService = animalService;
         this.customerService = customerService;
@@ -69,6 +71,13 @@ public class TransactionService {
         transactionRepository.save(transactionToUpdate);
     }
 
+    public boolean checkIfCustomerExistsAndStatus(Customer customer, String status){
+        List<Transaction> transactions = transactionRepository.findByCustomerAndStatusIsNot(customer, status);
+        return transactions.size() != 0;
+    }
+
+
+
     private void setAnimal(TransactionRest request, Transaction transactionToUpdate) {
         Animal animal = animalService.get(request.getAnimalId());
         transactionToUpdate.setAnimal(animal);
@@ -94,7 +103,6 @@ public class TransactionService {
         } else {
             transaction.setStatus(TransactionStatus.IN_PROGRESS.getValue());
         }
-
     }
 
     public void validateTransactionData(BigDecimal price) {

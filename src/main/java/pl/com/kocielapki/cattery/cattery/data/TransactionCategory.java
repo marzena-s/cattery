@@ -1,7 +1,6 @@
 package pl.com.kocielapki.cattery.cattery.data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "transactions_categories")
@@ -12,9 +11,6 @@ public class TransactionCategory {
     private String name;
     @Column(name = "type_code")
     private String type;
-//    @OneToMany
-//    @JoinColumn(name="transaction_category_id")
-//    private Set<TransactionSubcategory> transactionSubcategories;
 
     public TransactionCategory() {
     }
@@ -42,10 +38,6 @@ public class TransactionCategory {
         return type;
     }
 
-//    public Set<TransactionSubcategory> getTransactionSubcategories() {
-//        return transactionSubcategories;
-//    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -58,7 +50,4 @@ public class TransactionCategory {
         this.type = type;
     }
 
-//    public void setTransactionSubcategories(Set<TransactionSubcategory> transactionSubcategories) {
-//        this.transactionSubcategories = transactionSubcategories;
-//    }
 }

@@ -1,5 +1,6 @@
 package pl.com.kocielapki.cattery.cattery;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.kocielapki.cattery.cattery.api.CustomerRest;
@@ -15,10 +16,12 @@ import java.util.List;
 @Transactional
 public class CustomerService {
    private CustomerRepository customerRepository;
+   private TransactionService transactionService;
    private CustomerSearch customerSearch;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerSearch customerSearch) {
+    public CustomerService(CustomerRepository customerRepository, @Lazy TransactionService transactionService, CustomerSearch customerSearch) {
         this.customerRepository = customerRepository;
+        this.transactionService = transactionService;
         this.customerSearch = customerSearch;
     }
 
@@ -37,12 +40,15 @@ public class CustomerService {
     }
 
     public void update(CustomerRest request) {
-        validateCustomerData(request);
         Customer customerToUpdate;
         if(SourceUpdateStatus.DELETE.getValue().equals(request.getSource())){
             customerToUpdate = get(request.getId());
+            if(transactionService.checkIfCustomerExistsAndStatus(customerToUpdate, TransactionStatus.CANCELLED.getValue())){
+                throw new IllegalArgumentException("Nie można usunąć, zacznij od anulacji transakcji");
+            }
             customerToUpdate.setDeleteDateTime(LocalDateTime.now());
         } else {
+            validateCustomerData(request);
             customerToUpdate = new Customer(request);
         }
         customerRepository.save(customerToUpdate);

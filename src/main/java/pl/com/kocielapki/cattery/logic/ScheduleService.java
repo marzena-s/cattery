@@ -24,13 +24,4 @@ public class ScheduleService {
         log.debug("Caches invalidated");
     }
 
-
-//    private void loginIfNecessary() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication ==null || authentication.getName() == null) {
-//            authenticatedUser.loginAs("Automat");
-//        }
-//    }
-
-
 }

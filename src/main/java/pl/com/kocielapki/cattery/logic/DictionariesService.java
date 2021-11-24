@@ -198,17 +198,6 @@ public class DictionariesService {
         return data;
     }
 
-//    private List<DictionaryData> getAnimalsTransaction(Language lang, DictionaryType type) {
-//        String status = CatteryStatus.FOR_SALE.getValue();
-//
-////        Iterable<Animal> animals = animalRepository.findByDeleteDateTimeIsNullAndCatteryStatusCodeAndGenderCode(status, gender);
-//        StreamSupport.stream(animals.spliterator(), false).collect(Collectors.toList());
-//
-//        List<DictionaryData> data = getDictionaryDataWithAnimals(lang, animals);
-//
-//        return data;
-//    }
-
     private List<DictionaryData> getAnimalParents(pl.com.kocielapki.cattery.logic.Language lang, DictionaryType type) {
         String status = CatteryStatus.CATTERY.getValue();
         String gender = null;

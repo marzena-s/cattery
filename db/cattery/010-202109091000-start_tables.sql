@@ -60,14 +60,6 @@ primary key(id),
 foreign key (species_id) references species(id)
 );
 
-create table dictionaries (
-id int auto_increment,
-domain varchar(100) not null,
-code varchar(20) not null,
-value varchar(100) not null,
-lang varchar(20) not null,
-primary key (id));
-
 create table images (
 id int auto_increment,
 image_file_name varchar(1000) not null,
