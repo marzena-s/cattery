@@ -127,33 +127,28 @@ function prepareDetailsButton(id) {
      }
 }
 
+function showImage(image){
+    return ('<div class="p-3 col-md-4">' +
+        prepareImageToShow(image.imageFileName) +
+    '</div>')
+}
+
+
  function showDetailsImages(firstImage, secondImage, thirdImage){
     if(secondImage == null){
         return('<div class="form-row">' +
-                    '<div class="p-3 col-md-4">' +
-                            prepareImageToShow(firstImage.imageFileName) +
-                    '</div>' +
+                    showImage(firstImage) +
                 '</div>');
     } else if(thirdImage == null){
         return('<div class="form-row">' +
-                '<div class="p-3 col-md-4">' +
-                        prepareImageToShow(firstImage.imageFileName) +
-                    '</div>' +
-                    '<div class="p-3 col-md-4">' +
-                        prepareImageToShow(secondImage.imageFileName) +
-                    '</div>' +
+                    showImage(firstImage) +
+                    showImage(secondImage) +
                 '</div>');
     }  else {
         return('<div class="form-row">' +
-                '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(firstImage.imageFileName) +
-                '</div>' +
-                '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(secondImage.imageFileName) +
-                '</div>' +
-                '<div class="p-3 col-md-4">' +
-                    prepareImageToShow(thirdImage.imageFileName) +
-                '</div>' +
+                    showImage(firstImage) +
+                    showImage(secondImage) +
+                    showImage(thirdImage) +
             '</div>');
     }
  }

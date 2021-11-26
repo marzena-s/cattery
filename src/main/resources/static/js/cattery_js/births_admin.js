@@ -135,44 +135,30 @@ function showBirthImages(birth) {
      }
 }
 
+function showImageWithButton(image, birth){
+    return ('<div class="text-center col-md-4 border">' +
+        prepareImageToShow(image.imageFileName) +
+        prepareDeleteDetailsImageButton(image.id, birth.id) +
+    '</div>')
+}
+
 
 function showDetailsImages(firstImage, secondImage, thirdImage, birth){
     if(secondImage == null){
         return('<div class="form-row">' +
-                '<div class="text-center col-md-4 border">' +
-                        prepareImageToShow(firstImage.imageFileName) +
-                        prepareDeleteDetailsImageButton(firstImage.id, birth.id) +
-                '</div>' +
-            '</div>');
-            //142-145 nowa metoda i tą metodę powtarzam
-            //return poskładać do stringa i zwrócić
+                showImageWithButton(firstImage, birth) +
+                '</div>');
     } else if(thirdImage == null){
-             return('<div class="form-row">' +
-                     '<div class="text-center col-md-4 border">' +
-                             prepareImageToShow(firstImage.imageFileName)+
-                             prepareDeleteDetailsImageButton(firstImage.id, birth.id) +
-                         '</div>' +
-                         '<div class="text-center col-md-4 border">' +
-                             prepareImageToShow(secondImage.imageFileName)+
-                             prepareDeleteDetailsImageButton(secondImage.id, birth.id) +
-                         '</div>' +
-                     '</div>');
+        return('<div class="form-row">' +
+                showImageWithButton(firstImage, birth) +
+                howImageWithButton(secondImage, birth) +
+        '</div>');
      } else {
         return('<div class="form-row">' +
-                '<div class="text-center col-md-4 border">' +
-                    prepareImageToShow(firstImage.imageFileName)+
-                    prepareDeleteDetailsImageButton(firstImage.id, birth.id) +
-                '</div>' +
-                '<br/>' +
-                '<div class="text-center col-md-4 border">' +
-                    prepareImageToShow(secondImage.imageFileName)+
-                    prepareDeleteDetailsImageButton(secondImage.id, birth.id) +
-                '</div>' +
-                '<div class="text-center col-md-4 border">' +
-                    prepareImageToShow(thirdImage.imageFileName)+
-                    prepareDeleteDetailsImageButton(thirdImage.id, birth.id) +
-                '</div>' +
-            '</div>');
+               showImageWithButton(firstImage, birth) +
+               showImageWithButton(secondImage, birth) +
+               showImageWithButton(thirdImage, birth) +
+                '</div>');
     }
  }
 
