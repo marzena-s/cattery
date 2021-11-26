@@ -6,11 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.com.kocielapki.cattery.logic.CacheService;
-import pl.com.kocielapki.cattery.logic.CacheType;
-import pl.com.kocielapki.cattery.logic.DictionariesService;
-import pl.com.kocielapki.cattery.logic.DictionaryType;
-import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
+import pl.com.kocielapki.cattery.cattery.logic.CacheService;
+import pl.com.kocielapki.cattery.cattery.logic.CacheType;
+import pl.com.kocielapki.cattery.cattery.logic.DictionariesService;
+import pl.com.kocielapki.cattery.cattery.logic.DictionaryType;
+import pl.com.kocielapki.cattery.cattery.logic.utils.LanguagesUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

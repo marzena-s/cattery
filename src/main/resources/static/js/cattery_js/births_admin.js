@@ -144,6 +144,8 @@ function showDetailsImages(firstImage, secondImage, thirdImage, birth){
                         prepareDeleteDetailsImageButton(firstImage.id, birth.id) +
                 '</div>' +
             '</div>');
+            //142-145 nowa metoda i tą metodę powtarzam
+            //return poskładać do stringa i zwrócić
     } else if(thirdImage == null){
              return('<div class="form-row">' +
                      '<div class="text-center col-md-4 border">' +

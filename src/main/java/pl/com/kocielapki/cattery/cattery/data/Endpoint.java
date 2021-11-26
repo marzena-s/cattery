@@ -3,12 +3,12 @@ package pl.com.kocielapki.cattery.cattery.data;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.com.kocielapki.cattery.cattery.*;
+import pl.com.kocielapki.cattery.cattery.logic.*;
 import pl.com.kocielapki.cattery.cattery.api.*;
 import pl.com.kocielapki.cattery.domain.DictionaryData;
-import pl.com.kocielapki.cattery.logic.DictionariesService;
-import pl.com.kocielapki.cattery.logic.DictionaryType;
-import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
+import pl.com.kocielapki.cattery.cattery.logic.DictionariesService;
+import pl.com.kocielapki.cattery.cattery.logic.DictionaryType;
+import pl.com.kocielapki.cattery.cattery.logic.utils.LanguagesUtil;
 
 import java.io.IOException;
 import java.math.BigDecimal;
