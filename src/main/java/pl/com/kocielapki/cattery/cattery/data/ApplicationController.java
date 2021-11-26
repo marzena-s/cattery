@@ -6,11 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.com.kocielapki.cattery.logic.CacheService;
-import pl.com.kocielapki.cattery.logic.CacheType;
-import pl.com.kocielapki.cattery.logic.DictionariesService;
-import pl.com.kocielapki.cattery.logic.DictionaryType;
-import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
+import pl.com.kocielapki.cattery.cattery.logic.CacheService;
+import pl.com.kocielapki.cattery.cattery.logic.CacheType;
+import pl.com.kocielapki.cattery.cattery.logic.DictionariesService;
+import pl.com.kocielapki.cattery.cattery.logic.DictionaryType;
+import pl.com.kocielapki.cattery.cattery.logic.utils.LanguagesUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +93,11 @@ public class ApplicationController {
         return"cattery_templates/our_animals";
     }
 
+    @GetMapping({"/kocieta"})
+    public String kittens() {
+        return"cattery_templates/kittens";
+    }
+
     @GetMapping({"/opieka"})
     public String careForCats() {
         return"cattery_templates/care_for_cats";
@@ -146,6 +151,11 @@ public class ApplicationController {
         model.addAttribute("animalsDict", dictionariesService.getDictionary(DictionaryType.ANIMAL_MOTHER, LanguagesUtil.getCurrentLanguage()));
         model.addAttribute("customersDict", dictionariesService.getDictionary(DictionaryType.ANIMAL_FATHER, LanguagesUtil.getCurrentLanguage()));
         return"cattery_templates/transactions_admin";
+    }
+
+    @GetMapping({"/overview"})
+    public String presentation() {
+        return"cattery_templates/application_overview";
     }
 
 }

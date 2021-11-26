@@ -4,9 +4,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import pl.com.kocielapki.cattery.logic.ApplicationConfigService;
-import pl.com.kocielapki.cattery.logic.Language;
-import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
+import pl.com.kocielapki.cattery.cattery.logic.ApplicationConfigService;
+import pl.com.kocielapki.cattery.cattery.logic.Language;
+import pl.com.kocielapki.cattery.cattery.logic.utils.LanguagesUtil;
 
 import java.util.*;
 

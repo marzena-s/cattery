@@ -11,9 +11,6 @@ public class Breed {
     private String name;
     @Column(name = "short_name")
     private String shortName;
-//    @ManyToOne
-//    @JoinColumn(name = "species_id")
-//    private Species species;
 
     public Breed() {
     }
@@ -22,7 +19,6 @@ public class Breed {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
-//        this.species = species;
     }
 
     public Long getId() {
@@ -37,7 +33,4 @@ public class Breed {
         return shortName;
     }
 
-//    public Species getSpecies() {
-//        return species;
-//    }
 }

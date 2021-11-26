@@ -19,6 +19,7 @@ public class BirthRest {
     private Long amount;
     private Image image;
     private String note;
+    private Long imageToDeleteId;
     private String websiteDescription;
     private String websiteDetailsDescription;
     private String websiteVisibilityStatus;
@@ -54,6 +55,11 @@ public class BirthRest {
         if(birth.getImage() != null){
             this.image = birth.getImage();
         }
+        if(birth.getBirthsImages() != null){
+            this.birthsImages = birth.getBirthsImages();
+        }
+
+
     }
 
     public BirthRest(String name, String birthDate, Long motherId, Long fatherId, String note, String websiteDescription, String websiteDetailsDescription, String websiteVisibilityStatus, MultipartFile file) {
@@ -130,5 +136,9 @@ public class BirthRest {
 
     public Set<Image> getBirthsImages() {
         return birthsImages;
+    }
+
+    public Long getImageToDeleteId() {
+        return imageToDeleteId;
     }
 }

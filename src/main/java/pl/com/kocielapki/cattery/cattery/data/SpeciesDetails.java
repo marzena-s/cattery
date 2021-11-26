@@ -9,7 +9,6 @@ public class SpeciesDetails {
     private Long id;
     private String details;
 
-    //jeżeli z tej ppozycji chę mieć powiązanie do Species, nieobowiązkowe
     @OneToOne(mappedBy = "speciesDetails")
     private Species species;
 

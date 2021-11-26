@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="bg-image" style="background-image: url('img/cattery/main-photo-cut.jpg'); background-size: cover; background-position: relative; height: 100vh;">
+    <div class="bg-image" style="background-image: url('img/cattery/main-photo-cut.jpg'); background-size: cover; background-position: center; height: 100vh;">
     </div>
 
 <nav th:replace="${@userService.getLoggedUser()} ? 'fragments/cattery_logged_in_navbar' : 'fragments/cattery_navbar'"></nav>

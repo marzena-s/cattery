@@ -61,6 +61,7 @@ function prepareUrl() {
              url += "&city=" + city;
          }
 
+    url += "&page_size=" + 10;
     url += preparePaginationUrl();
     return url;
 }
@@ -124,7 +125,6 @@ function showDetailsModal(customer) {
          $("#street-create").val(''),
          $("#building-no-create").val(''),
          $("#flat-no-create").val(''),
-//         image: $("#create-file").val(),
          $("#note-create").val(''),
          $("#city-create").val(''),
          $("#postal-code-create").val(''),
@@ -146,7 +146,6 @@ function sendCreateRequest() {
                  street: $("#street-create").val(),
                  buildingNo: $("#building-no-create").val(),
                  flatNo: $("#flat-no-create").val(),
-//                 image: $("#create-file").val(),
                  note: $("#note-create").val(),
                  city: $("#city-create").val(),
                  postalCode: $("#postal-code-create").val(),

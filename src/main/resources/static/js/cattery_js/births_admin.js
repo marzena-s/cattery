@@ -36,7 +36,7 @@ $(document).ready(function () {
           event.preventDefault();
     });
 
- $("#upload-birth-main-photo").submit(function(event){
+    $("#upload-birth-main-photo").submit(function(event){
          var birthId = $("#id").val();
          $.ajax({
              type: "put",
@@ -47,7 +47,31 @@ $(document).ready(function () {
              cache: false,
              processData:false,
              success: function (response) {
-                window.location.reload();
+            getBirth(birthId);
+
+             },
+             error: function (jqxhr, textStatus, errorThrown) {
+                $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
+                $("#invalid-data-modal").modal('show');
+
+             }
+          });
+          event.preventDefault();
+    });
+
+    $("#upload-birth-details-photo").submit(function(event){
+         var birthId = $("#id").val();
+         $.ajax({
+             type: "put",
+             enctype: 'multipart/form-data',
+             url: "/admin/api/birth/" + birthId +"/details_photo",
+             data: new FormData(this),
+             contentType: false,
+             cache: false,
+             processData:false,
+             success: function (response) {
+                getBirth(birthId);
+
              },
              error: function (jqxhr, textStatus, errorThrown) {
                 $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
@@ -57,27 +81,6 @@ $(document).ready(function () {
           event.preventDefault();
     });
 
-
-// $("#upload-birth-photo").submit(function(event){
-//    var birthId = $("#id").val();
-//    $.ajax({
-//        type: "put",
-//        enctype: 'multipart/form-data',
-//        url: "/admin/api/animal/" + animalId +"/photo",
-//        data: new FormData(this),
-//        contentType: false,
-//        cache: false,
-//        processData:false,
-//        success: function (response) {
-//            window.location.reload();
-//        },
-//        error: function (jqxhr, textStatus, errorThrown) {
-//            $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
-//            $("#invalid-data-modal").modal('show');
-//        }
-//    });
-//    event.preventDefault();
-// });
 });
 
 function prepareCreateBirthUrl() {
@@ -109,17 +112,64 @@ function findBirths() {
     });
 }
 
-function fillBirthImages(birth) {
-       birth.birthsImages.forEach(function(image){
-            if(image != null){
-                 $('#' + image);
-            }
-       })
+function showBirthImages(birth) {
+     $('#images-births').empty();
+     var firstImage = null;
+     var secondImage = null;
+     var thirdImage = null;
+     var images = birth.birthsImages;
+     for (var i = 0; i < images.length; i+=3) {
+        firstImage = images[i];
+        if((i+1) != images.length){
+            secondImage = images[i+1];
+        }
+        if((i+2) != images.length){
+           thirdImage = images[i+2];
+        }
+        $('#images-births').append(
+        showDetailsImages(firstImage, secondImage, thirdImage, birth)
+        );
+        firstImage = null;
+        secondImage = null;
+        thirdImage = null;
+     }
 }
 
- function prepareImageToShow(imageFileName){
-    return '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" width="300px" height="300px">';
+function showImageWithButton(image, birth){
+    return ('<div class="text-center col-md-4 border">' +
+        prepareImageToShow(image.imageFileName) +
+        prepareDeleteDetailsImageButton(image.id, birth.id) +
+    '</div>')
+}
+
+
+function showDetailsImages(firstImage, secondImage, thirdImage, birth){
+    if(secondImage == null){
+        return('<div class="form-row">' +
+                showImageWithButton(firstImage, birth) +
+                '</div>');
+    } else if(thirdImage == null){
+        return('<div class="form-row">' +
+                showImageWithButton(firstImage, birth) +
+                howImageWithButton(secondImage, birth) +
+        '</div>');
+     } else {
+        return('<div class="form-row">' +
+               showImageWithButton(firstImage, birth) +
+               showImageWithButton(secondImage, birth) +
+               showImageWithButton(thirdImage, birth) +
+                '</div>');
+    }
  }
+
+function prepareDeleteDetailsImageButton(imageId) {
+    return '<button type="button" class="btn btn-danger" id="delete-button" onclick="sendUpdateRequest(\'delete_birth_image\','+ imageId +')">' + lang.Delete +'</button>';
+}
+
+
+function prepareImageToShow(imageFileName){
+    return  '<img src="/admin/birth/file/'+ imageFileName +'/" class="img-thumbnail" width="300px" max-height="300px">';
+}
 
 
 function getBirth(id) {
@@ -219,9 +269,14 @@ function showDetailsModal(birth) {
     $("#website-visibility-status-details").val(birth.websiteVisibilityStatus),
     $("#note-details").val(birth.note);
     if(birth.image != null){
+        $('#main-image-details').empty();
+
         $("#main-image-details").append(
         prepareImageToShow(birth.image.imageFileName)
         );
+    };
+    if(birth.birthsImages != null){
+        showBirthImages(birth);
     };
     $('#details-modal').modal('show');
 }
@@ -235,43 +290,12 @@ function showDetailsModal(birth) {
          $("#website-details-description-create").val('');
      }
 
-//function sendCreateRequest() {
-//         $.ajax({
-//             url: "/admin/api/birth",
-//             method: "post",
-//             contentType: "application/json",
-//             data:
-//             JSON.stringify({
-//                 name: $("#name-create").val(),
-//                 birthDate: $("#birth-date-create").val(),
-//                 motherId: $("#mother-create").val(),
-//                 fatherId: $("#father-create").val(),
-//                 amount: $("#amount-create").val(),
-////                 image: $("#create-file").val(),
-//                 note: $("#note-create").val(),
-//                 websiteDescription: $("#website-description-create").val(),
-//                 websiteDetailsDescription: $("#website-details-description-create").val(),
-//                 websiteVisibilityStatus:  $("#website-visibility-status-create").find(":selected").val()
-//             })
-//         })
-//         .done(function () {
-//              $("#create-modal").modal('hide');
-//              $("#operation-successful-modal").modal('show');
-//              $(".modal-backdrop").remove();
-//              findBirths();
-//         })
-//         .fail(function (jqxhr, textStatus, errorThrown) {
-//               $("#create-button").prop( "disabled", false );
-//               $("#error-text").text(prepareErrorMessage(jqxhr.responseText));
-//               $("#invalid-data-modal").modal('show');
-//         })
-//}
 
-function sendUpdateRequest(source) {
-     var birthId;
+function sendUpdateRequest(source, imageIdToDelete) {
+     var birthId = null;
        if(source == "delete"){
           birthId = $("#id-delete").val();
-       } else {
+       } else if(source == 'update' || source == "delete_birth_image") {
           birthId = $("#id").val();
        };
 
@@ -289,15 +313,20 @@ function sendUpdateRequest(source) {
             note: $("#note-details").val(),
             websiteDescription: $("#website-description").val(),
             websiteDetailsDescription: $("#website-details-description").val(),
-            websiteVisibilityStatus:  $("#website-visibility-status").find(":selected").val(),
-            source: source
+            websiteVisibilityStatus:  $("#website-visibility-status-details").find(":selected").val(),
+            source: source,
+            imageToDeleteId: imageIdToDelete
         })
     })
         .done(function () {
             $('#delete-object-modal').modal('hide');
             $("#operation-successful-modal").modal('show');
-            $('#details-modal').modal('hide');
-            findBirths();
+            if(source == "delete" || source == 'update'){
+                $('#details-modal').modal('hide');
+                findBirths();
+            } else if(source == "delete_birth_image") {
+                getBirth(birthId);
+            };
         })
         .fail(function (jqxhr, textStatus, errorThrown) {
             $("#save-changes-button").prop( "disabled", false );

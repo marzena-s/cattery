@@ -2,3 +2,4 @@
 /.idea
 /src/main/resources/application-marz.properties
 /*.iml
+/src/main/resources/application-my-devil-cattery.properties

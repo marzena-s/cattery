@@ -44,7 +44,6 @@ public class AnimalRest {
     }
 
     public AnimalRest(String name, Long breedId, String lineageName, String genderCode, String birthDate, String color, String chipNumber, String lineageNumber, BigDecimal weight, String catteryStatusCode, Long motherId, Long fatherId, BigDecimal price, String saleStatusCode, String note, String websiteDescription, String websiteVisibilityStatus, Long birthId, MultipartFile file) {
-//    public AnimalRest(String name, Long breedId, String lineageName, String genderCode, String birthDate, String color, String chipNumber, String lineageNumber, BigDecimal weight, String catteryStatusCode, Long motherId, Long fatherId, BigDecimal price, String saleStatusCode, String note, String websiteDescription, String websiteVisibilityStatus, MultipartFile file) {
         this.name = name;
         this.breedId = breedId;
         this.lineageName = lineageName;
@@ -96,7 +95,6 @@ public class AnimalRest {
         this.websiteDescription = request.getWebsiteDescription();
         this.websiteVisibilityStatus = request.getWebsiteVisibilityStatus();
         this.birth = request.getBirth();
-//        this.deleteDateTime = LocalDateTime.now();
     }
 
 

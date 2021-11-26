@@ -3,13 +3,14 @@ package pl.com.kocielapki.cattery.cattery.data;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.com.kocielapki.cattery.cattery.*;
+import pl.com.kocielapki.cattery.cattery.logic.*;
 import pl.com.kocielapki.cattery.cattery.api.*;
 import pl.com.kocielapki.cattery.domain.DictionaryData;
-import pl.com.kocielapki.cattery.logic.DictionariesService;
-import pl.com.kocielapki.cattery.logic.DictionaryType;
-import pl.com.kocielapki.cattery.logic.utils.LanguagesUtil;
+import pl.com.kocielapki.cattery.cattery.logic.DictionariesService;
+import pl.com.kocielapki.cattery.cattery.logic.DictionaryType;
+import pl.com.kocielapki.cattery.cattery.logic.utils.LanguagesUtil;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +68,10 @@ public class Endpoint {
             @RequestParam(name = "mother_id", required = false) Long motherId,
             @RequestParam(name = "father_id", required = false) Long fatherId,
             @RequestParam(name = "birth_name", required = false) String birthName,
+            @RequestParam(name = "website_visibility_status", required = false) String websiteVisibilityStatus,
             @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
             @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
-        List<Birth> births = birthService.findBy(new BirthFilter(motherId, fatherId, birthName, page, pageSize));
+        List<Birth> births = birthService.findBy(new BirthFilter(motherId, fatherId, birthName, websiteVisibilityStatus, page, pageSize));
         return birthsToResponses(births);
     }
 
@@ -91,7 +93,6 @@ public class Endpoint {
     @PutMapping(path = "/admin/api/birth/{id}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     public void updateBirth(@PathVariable Long id, @RequestBody BirthRest request) {
         birthService.update(request);
-
     }
 
     @PutMapping("/admin/api/birth/{id}/photo")
@@ -99,10 +100,9 @@ public class Endpoint {
         birthService.updatePhoto(id, image);
     }
 
-    @PutMapping("/admin/api/birth/{id}/photos")
-    public void updateBirthPhotos(@RequestParam("file") MultipartFile image, @PathVariable Long id) {
-        birthService.updatePhoto(id, image);
-        //todo
+    @PutMapping("/admin/api/birth/{id}/details_photo")
+    public void addBirthPhotos(@RequestParam("file") MultipartFile image, @PathVariable Long id) {
+        birthService.addDetailsPhoto(id, image);
     }
 
     @GetMapping(path = "/api/animal_disease/{id}", produces = "application/json; charset=UTF-8")
@@ -137,7 +137,7 @@ public class Endpoint {
             @RequestParam(name = "last_name", required = false) String lastName,
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
-            @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
+            @RequestParam(name = "page_size", required = false) Long pageSize) {
 
         List<Customer> customers = customerService.findBy(new CustomerFilter(firstName, lastName, city, page, pageSize));
         return customersToResponses(customers);
@@ -185,9 +185,7 @@ public class Endpoint {
                                               @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
                                               @RequestParam(name = "page_size", required = false, defaultValue = "10") Long pageSize) {
 
-       List<Transaction> transactions = transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
-       return  transactions;
-//        return transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
+       return transactionService.findBy(new TransactionFilter(customerFirstName, customerLastName, animalName, animalLineageName, animalSaleStatus, transactionStatus, page, pageSize, new TransactionCategory("Sprzedaż kota", "i")));
     }
 
     @PostMapping(path = "/admin/api/transaction", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
@@ -317,14 +315,15 @@ public class Endpoint {
     @GetMapping(
             value = "/admin/animal/file/{name}",
             produces = MediaType.IMAGE_GIF_VALUE)
-    public @ResponseBody byte[] getFile(@PathVariable(name = "name") String fileName) {
-        return imageService.getImage(fileName);
+    public @ResponseBody byte[] getAnimalFile(@PathVariable(name = "name") String fileName) throws IOException {
+            return imageService.getImage(fileName);
+
     }
 
     @GetMapping(
             value = "/admin/birth/file/{name}",
             produces = MediaType.IMAGE_GIF_VALUE)
-    public @ResponseBody byte[] getBirthFile(@PathVariable(name = "name") String fileName) {
+    public @ResponseBody byte[] getBirthFile(@PathVariable(name = "name") String fileName) throws IOException {
         return imageService.getImage(fileName);
     }
 

@@ -149,7 +149,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 text-center">
-                            <label for="lineage-name-details" th:text="#{animal.lineage.name}"></label>
+                            <label for="lineage-name-details" th:text="#{animal.lineage.name}" class="three-required"></label>
                             <input id="lineage-name-details" type="text" class="form-control" value="">
                         </div>
                         <div class="form-group col-md-6 text-center">
@@ -254,14 +254,15 @@
                     </textarea></div>
                     </div>
                     <div class="form-group">
-                        <label for="website-description" th:text="#{website.description}"></label>
+                        <label for="website-description" th:text="#{website.description}" class="three-required"></label>
                         <div class="align-middle">
                             <textarea id="website-description" type="text" class="form-control" rows="3" value="">
                             </textarea>
                         </div>
                     </div>
                     <div class="text-justify">
-                        <a th:text="#{birth.date.comment}"></a>
+                        <a th:text="#{animal.data.comment}"></a><br>
+                        <a th:text="#{animal.data.second.comment}"></a>
                         <br><br>
                     </div>
                     <div class="text-center">
@@ -273,7 +274,7 @@
                     </div>
                 </form>
                 <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
-                <h5 class="text-center">Zdjęcie:</h5>
+                <h5 class="text-center three-required">Zdjęcie:</h5>
                 <div class="text-center my-3" id="image-details">
                 </div>
 
@@ -306,7 +307,7 @@
                 <form class="text-center upload" id="upload-animal">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="image-create" th:text="#{image}"></label>
+                            <label for="image-create" th:text="#{image}" class="three-required"></label>
                             <input type="file" name="file" class="form-control-file" id="image-create"
                                    accept="image/*"/>
                         </div>
@@ -333,7 +334,7 @@
                             <input id="name-create" type="text" class="form-control" value="">
                         </div>
                         <div class="form-group col-md-6 text-center">
-                            <label for="lineage-name-create" th:text="#{animal.lineage.name}"></label>
+                            <label for="lineage-name-create" th:text="#{animal.lineage.name}" class="three-required"></label>
                             <input id="lineage-name-create" type="text" class="form-control" value="">
                         </div>
                     </div>
@@ -423,14 +424,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="note-create" th:text="#{note}"></label>
-                        <div class="align-middle"><textarea id="note-create" type="text" class="form-control" rows="3"
-                                                            value=""></textarea></div>
-                    </div>
+                        <label for="website-description-create" th:text="#{website.description}" class="three-required"></label>
+                        <div class="align-middle"><textarea id="website-description-create" type="text" class="form-control" rows="3"value=""></textarea></div>                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6 text-center">
-                            <label for="website-description-create" th:text="#{website.description}"></label>
-                            <input id="website-description-create" type="text" class="form-control" value="">
+                            <label for="note-create" th:text="#{note}"></label>
+                            <input id="note-create" type="text" class="form-control" value="">
                         </div>
                         <div class="form-group col-md-6 text-center">
                             <label for="website-visibility-status-create"
@@ -444,7 +444,8 @@
                         </div>
                     </div>
                     <div class="text-justify">
-                        <a th:text="#{birth.date.comment}"></a>
+                        <a th:text="#{animal.data.comment}"></a><br>
+                        <a th:text="#{animal.data.second.comment}"></a>
                         <br><br>
                     </div>
                     <div class="text-center">

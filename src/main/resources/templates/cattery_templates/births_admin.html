@@ -9,11 +9,7 @@
     <script th:src="@{/js/cattery_js/births_admin.js}"></script>
     <script th:inline="javascript">
         var websiteVisibilityStatusDict = [[${websiteVisibilityStatusDict}]];
-
-
-
     </script>
-
 </head>
 
 <body>
@@ -152,71 +148,52 @@
                                                             value=""></textarea></div>
                     </div>
                     <div class="form-group">
-                        <label for="website-description" th:text="#{website.description}"></label>
+                        <label for="website-description" th:text="#{website.description}"  class="double-required"></label>
                         <div class="align-middle"><textarea id="website-description" type="text" class="form-control"
                                                             rows="3" value=""></textarea></div>
                     </div>
                     <div class="form-group">
-                        <label for="website-details-description" th:text="#{website.details.description}"></label>
+                        <label for="website-details-description" th:text="#{website.details.description}" class="double-required"></label>
                         <div class="align-middle"><textarea id="website-details-description" type="text"
                                                             class="form-control" rows="3" value=""></textarea></div>
                     </div>
+                    <div class="text-justify">
+                        <a th:text="#{birth.data.comment}"></a>
+                        <br><br>
+                    </div>
                     <div class="text-center">
                         <button type="button" id="update-button" class="btn btn-success"
-                                onclick="sendUpdateRequest('update')"
+                                onclick="sendUpdateRequest('update', null)"
                                 th:text="#{Save.changes}"></button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                 th:text="#{Cancel}"></button>
                     </div>
                 </form>
                 <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
-                    <h5 class="text-center">Zdjęcie główne:</h5>
+                    <h5 class="text-center double-required">Zdjęcie główne:</h5>
                     <div class="text-center my-3" id="main-image-details">
                     </div>
 
                     <form id="upload-birth-main-photo" class="upload">
                         <h5 class="text-center">Zmień zdjęcie</h5>
                         <div class="text-center">
-                            <input type="file" name="file" accept="image/*">
+                            <input type="file" id ="detail-photo" name="file" accept="image/*">
                             <input type="submit" value="Załaduj">
                         </div>
                     </form>
                 </div>
                 <div class="p-5 mt-3 mb-5 border" style="background-color: #313131">
                     <h5 class="text-center">Zdjęcia miotu:</h5>
-                    <form id="upload-birth-photos" class="upload">
-                        <h5 class="text-center">Doadj/Zmień zdjęcia</h5>
-                        <div class="text-center my-3" id="images-details">
+                    <form id="upload-birth-details-photo" class="upload">
+                        <div class="text-center">
+                            <h5 class="text-center">Dodaj zdjęcie</h5>
+                            <input type="file" name="file" accept="image/*">
+                            <input type="submit" value="Załaduj">
                         </div>
-                        <div class="form-row">
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-one" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-two" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-three" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-four" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-five" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                            <div class="text-center col-md-4 border">
-                                <input type="file" id="file-six" name="file" accept="image/*">
-                                <input type="submit" value="Załaduj">
-                            </div>
-                        </div>
+                        <br><br>
                     </form>
+                    <div id="images-births">
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,7 +217,7 @@
                     <form class="text-center">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="create-file">Zdjęcie główne</label>
+                                <label for="create-file" class="double-required">Zdjęcie główne</label>
                                 <input type="file" name="file" class="form-control-file" id="create-file"
                                        accept="image/*"/>
                             </div>
@@ -298,31 +275,21 @@
                                                                 rows="3" value=""></textarea></div>
                         </div>
                         <div class="form-group">
-                            <label for="website-description-create" th:text="#{website.description}"></label>
+                            <label for="website-description-create" th:text="#{website.description}"
+                                   class="double-required"></label>
                             <div class="align-middle"><textarea id="website-description-create" type="text"
                                                                 class="form-control" rows="3" value=""></textarea></div>
                         </div>
                         <div class="form-group">
                             <label for="website-details-description-create"
-                                   th:text="#{website.details.description}"></label>
+                                   th:text="#{website.details.description}" class="double-required"></label>
                             <div class="align-middle"><textarea id="website-details-description-create" type="text"
                                                                 class="form-control" rows="3" value=""></textarea></div>
                         </div>
-<!--                        <div class="form-row">-->
-<!--                            <a>Zdjęcia miotu</a>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-first"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-second"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <input type="file" name="file" class="form-control-file" id="create-file-third"-->
-<!--                                       accept="image/*"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="text-justify">
+                            <a th:text="#{birth.data.comment}"></a>
+                            <br><br>
+                        </div>
                         <div class="text-center">
                             <button type="submit" id="create-button" class="btn btn-success"
                                     th:text="#{Create}"></button>
